@@ -52,7 +52,7 @@ const NavBar = () => {
       </div>
 
       <div
-        className={`md:hidden flex flex-col items-center mt-4 transition-all duration-700 ${
+        className={`md:hidden flex flex-col items-center  transition-all duration-700 ${
           isMobileMenuOpen
             ? "max-h-screen opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
@@ -68,7 +68,7 @@ const NavBar = () => {
         <div className="flex flex-col items-center mt-4">
           <div className="cursor-pointer mb-4 flex">
             <CgShoppingCart size={32} />
-            <p className="h-6 w-6 text-center text-white font-bold rounded-full bg-red-500">
+            <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
               2
             </p>
           </div>
