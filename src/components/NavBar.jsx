@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { navItems } from "../data/data";
 import { CgShoppingCart } from "react-icons/cg";
 import { FiMenu, FiX } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,12 +22,14 @@ const NavBar = () => {
         <div className="hidden md:flex flex-row">
           <ul className="flex flex-row">
             {navItems.map((item) => (
-              <li
-                key={item.id}
-                className="mx-4 font-semibold text-sm lg:text-base"
-              >
-                <a href={item.url}>{item.title}</a>
-              </li>
+              <Link to={item.url}>
+                <li
+                  key={item.id}
+                  className="mx-4 font-semibold text-sm lg:text-base"
+                >
+                  {item.title}
+                </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -37,12 +40,14 @@ const NavBar = () => {
               2
             </p>
           </div>
-          <div className="bg-slate-800 py-2 px-3 lg:px-4 text-sm  rounded-full font-semibold text-white">
-            <button>Sign In</button>
-          </div>
+          <Link to={"/sign-in"}>
+            <div className="bg-slate-800 py-2 px-3 lg:px-4 text-sm  rounded-full font-semibold text-white">
+              <button>Sign In</button>
+            </div>
+          </Link>
         </div>
         <div className="md:hidden flex items-center">
-        <button
+          <button
             onClick={handleMobileMenuToggle}
             className={`text-3xl ${isMobileMenuOpen ? "animate-spin" : ""}`}
           >
@@ -60,9 +65,11 @@ const NavBar = () => {
       >
         <ul className="flex flex-col items-center">
           {navItems.map((item) => (
-            <li key={item.id} className="my-2 font-semibold text-base">
-              <a href={item.url}>{item.title}</a>
-            </li>
+            <Link to={item.url}>
+              <li key={item.id} className="my-2 font-semibold text-base">
+                {item.title}
+              </li>
+            </Link>
           ))}
         </ul>
         <div className="flex flex-col items-center mt-4">
@@ -72,9 +79,11 @@ const NavBar = () => {
               2
             </p>
           </div>
-          <div className="bg-slate-800 py-2 px-4 mb-8 rounded-full font-semibold text-white">
-            <button>Sign In</button>
-          </div>
+          <Link to={"/sign-in"}>
+            <div className="bg-slate-800 py-2 px-4 mb-8 rounded-full font-semibold text-white">
+              <button>Sign In</button>
+            </div>
+          </Link>
         </div>
       </div>
     </nav>
