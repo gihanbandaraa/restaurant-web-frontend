@@ -12,7 +12,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="mx-2 shadow-md sm:px-8">
+    <nav className="shadow-md sm:px-8">
       <div className="flex items-center mx-2 justify-between">
         <Link to={"/"}>
           <img
