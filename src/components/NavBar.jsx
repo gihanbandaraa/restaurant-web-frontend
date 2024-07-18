@@ -14,11 +14,13 @@ const NavBar = () => {
   return (
     <nav className="mx-2 shadow-md sm:px-8">
       <div className="flex items-center mx-2 justify-between">
-        <img
-          src="/Images/serendib-savor.svg"
-          alt="logo"
-          className="w-36 sm:w-48"
-        />
+        <Link to={"/"}>
+          <img
+            src="/Images/serendib-savor.svg"
+            alt="logo"
+            className="w-36 sm:w-48"
+          />
+        </Link>
         <div className="hidden md:flex flex-row">
           <ul className="flex flex-row">
             {navItems.map((item) => (
