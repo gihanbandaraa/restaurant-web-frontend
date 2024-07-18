@@ -23,22 +23,6 @@ const SignIn = () => {
         <div className="bg-white  p-8 rounded-lg shadow-lg max-w-sm w-full">
           <form className="space-y-4">
             <div>
-              <div
-                className="mt-1 items-center w-full 
-              flex flex-row px-3 py-2 border gap-2 sm:gap-4
-               border-gray-300 rounded-full shadow-sm 
-                focus:ring focus:ring-indigo-200"
-              >
-                <FaRegUserCircle
-                  className="inline-block text-gray-400  "
-                  size={20}
-                />
-                <input
-                  type="text"
-                  className="focus:outline-none text-sm sm:text-base"
-                  placeholder="Enter your username"
-                />
-              </div>
               <div className="mt-4 items-center w-full flex flex-row px-3 py-2 border gap-2 sm:gap-4 border-gray-300 rounded-full shadow-sm  focus:ring focus:ring-indigo-200">
                 <FaRegEnvelope
                   className="inline-block text-gray-400"
