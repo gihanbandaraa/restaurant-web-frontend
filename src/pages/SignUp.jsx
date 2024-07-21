@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaFacebook,
   FaLock,
@@ -14,6 +15,7 @@ import Alert from "../components/Alert";
 import useAlert from "../hooks/useAlert";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [passwordShown, setPasswordShown] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -25,15 +27,43 @@ const SignUp = () => {
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
-    handleShowAlert("success", "Registration successful!");
+   
   };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (!formData.username || !formData.email || !formData.password) {
+      handleShowAlert("error", "Please fill all fields!");
+      return;
+    }
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        handleShowAlert("error", data.message);
+      }
+      if (res.ok) {
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+        });
+        handleShowAlert("success", "Registration successful!");
+        navigate("/sign-in");
+      }
+    } catch (error) {
+      handleShowAlert("error", "An error occurred. Please try again later.");
+    }
   };
 
   return (
@@ -66,7 +96,6 @@ const SignUp = () => {
                 icon={FaRegUserCircle}
                 onChange={handleChange}
                 id={"username"}
-                required={true}
               />
               <TextInput
                 type="email"
@@ -74,7 +103,6 @@ const SignUp = () => {
                 icon={FaRegEnvelope}
                 onChange={handleChange}
                 id={"email"}
-                required={true}
               />
               <div className="relative">
                 <TextInput
@@ -83,7 +111,6 @@ const SignUp = () => {
                   icon={FaLock}
                   onChange={handleChange}
                   id={"password"}
-                  required={true}
                 />
                 <div
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
