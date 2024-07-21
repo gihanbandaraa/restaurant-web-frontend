@@ -1,10 +1,26 @@
-import React from "react";
-import { CiLock } from "react-icons/ci";
-import { FaFacebook, FaRegEnvelope, FaRegUserCircle } from "react-icons/fa";
+import React, { useState } from "react";
+import {
+  FaFacebook,
+  FaLock,
+  FaRegEnvelope,
+  FaRegEye,
+  FaRegEyeSlash,
+} from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import TextInput from "../components/TextInput"; // Import the new TextInput component
 
 const SignIn = () => {
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
     <div className="h-screen w-full relative">
       <img
@@ -12,7 +28,7 @@ const SignIn = () => {
         alt=""
         className="h-full w-full object-cover"
       />
-      <div className="absolute inset-0 mt-10 md:mt-10 lg:mt-12  text-center">
+      <div className="absolute inset-0 mt-10 md:mt-10 lg:mt-12 text-center">
         <h1 className="font-bold text-xl md:text-3xl">Sign In</h1>
         <p className="font-semibold text-sm sm:text-base px-1 mt-2">
           More than <span className="text-red-500">750 recipes</span> from
@@ -20,30 +36,34 @@ const SignIn = () => {
         </p>
       </div>
       <div className="absolute inset-0 flex items-center justify-center p-4">
-        <div className="bg-white  p-8 rounded-lg shadow-lg max-w-sm w-full">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
           <form className="space-y-4">
-            <div>
-              <div className="mt-4 items-center w-full flex flex-row px-3 py-2 border gap-2 sm:gap-4 border-gray-300 rounded-full shadow-sm  focus:ring focus:ring-indigo-200">
-                <FaRegEnvelope
-                  className="inline-block text-gray-400"
-                  size={20}
-                />
-                <input
-                  type="email"
-                  className="focus:outline-none text-sm sm:text-base"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div className="mt-4 items-center w-full flex flex-row px-3 py-2 border gap-2 sm:gap-4 border-gray-300 rounded-full shadow-sm  focus:ring focus:ring-indigo-200">
-                <CiLock className="inline-block text-gray-400" size={20} />
-                <input
-                  type="password"
-                  className="focus:outline-none text-sm sm:text-base"
-                  placeholder="Enter your password"
-                />
+            <TextInput
+              type="email"
+              placeholder="Enter your email"
+              icon={FaRegEnvelope}
+              onChange={handleChange}
+            />
+            <div className="relative">
+              <TextInput
+                type={passwordShown ? "text" : "password"}
+                placeholder="Enter your password"
+                icon={FaLock}
+                onChange={handleChange}
+              />
+              <div
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordShown ? (
+                  <FaRegEye className="text-gray-400" size={18} />
+                ) : (
+                  <FaRegEyeSlash className="text-gray-400" size={18} />
+                )}
               </div>
             </div>
-            <div className="flex sm:items-center gap-2 flex-col sm:flex-row  justify-between">
+
+            <div className="flex sm:items-center gap-2 flex-col sm:flex-row justify-between">
               <div>
                 <input type="checkbox" id="remember" />
                 <label
@@ -88,10 +108,10 @@ const SignIn = () => {
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
           <div className="flex justify-center gap-4">
-            <div className="bg-gray-200 rounded-full p-1 ">
-              <FcGoogle className="text-2xl " />
+            <div className="bg-gray-200 rounded-full p-1">
+              <FcGoogle className="text-2xl" />
             </div>
-            <div className="bg-gray-200 rounded-full p-1 ">
+            <div className="bg-gray-200 rounded-full p-1">
               <FaFacebook className="text-2xl text-blue-500" />
             </div>
           </div>

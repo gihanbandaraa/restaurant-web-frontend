@@ -24,26 +24,21 @@ const NavBar = () => {
         <div className="hidden md:flex flex-row">
           <ul className="flex flex-row">
             {navItems.map((item) => (
-              <Link to={item.url}>
-                <li
-                  key={item.id}
-                  className="mx-4 font-semibold text-sm lg:text-base"
-                >
-                  {item.title}
-                </li>
-              </Link>
+              <li key={item.id} className="mx-4 font-semibold text-sm lg:text-base">
+                <Link to={item.url}>{item.title}</Link>
+              </li>
             ))}
           </ul>
         </div>
         <div className="hidden md:flex gap-4 items-center">
           <div className="cursor-pointer flex">
             <CgShoppingCart size={32} />
-            <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500  ">
+            <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
               2
             </p>
           </div>
           <Link to={"/sign-in"}>
-            <div className="bg-slate-800 py-2 px-3 lg:px-4 text-sm  rounded-full font-semibold text-white">
+            <div className="bg-slate-800 py-2 px-3 lg:px-4 text-sm rounded-full font-semibold text-white">
               <button>Sign In</button>
             </div>
           </Link>
@@ -59,7 +54,7 @@ const NavBar = () => {
       </div>
 
       <div
-        className={`md:hidden flex flex-col items-center  transition-all duration-700 ${
+        className={`md:hidden flex flex-col items-center transition-all duration-700 ${
           isMobileMenuOpen
             ? "max-h-screen opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
@@ -67,11 +62,9 @@ const NavBar = () => {
       >
         <ul className="flex flex-col items-center">
           {navItems.map((item) => (
-            <Link to={item.url}>
-              <li key={item.id} className="my-2 font-semibold text-base">
-                {item.title}
-              </li>
-            </Link>
+            <li key={item.id} className="my-2 font-semibold text-base">
+              <Link to={item.url}>{item.title}</Link>
+            </li>
           ))}
         </ul>
         <div className="flex flex-col items-center mt-4">
