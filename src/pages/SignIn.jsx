@@ -18,6 +18,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Oauth from "../components/OAuth";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -174,14 +175,7 @@ const SignIn = () => {
             </span>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
-          <div className="flex justify-center gap-4">
-            <div className="bg-gray-200 rounded-full p-1">
-              <FcGoogle className="text-2xl" />
-            </div>
-            <div className="bg-gray-200 rounded-full p-1">
-              <FaFacebook className="text-2xl text-blue-500" />
-            </div>
-          </div>
+          <Oauth />
         </div>
       </div>
     </div>
