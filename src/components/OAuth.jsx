@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  getAuth,
+} from "firebase/auth";
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -17,6 +21,7 @@ const OAuth = () => {
 
     try {
       const resultFromGoogle = await signInWithPopup(auth, provider);
+      
       const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: {
@@ -25,7 +30,7 @@ const OAuth = () => {
         body: JSON.stringify({
           name: resultFromGoogle.user.displayName,
           email: resultFromGoogle.user.email,
-          photoURL: resultFromGoogle.user.photoURL,
+          googlePhotoUrl: resultFromGoogle.user.photoURL,
         }),
       });
       const data = await res.json();
@@ -37,6 +42,7 @@ const OAuth = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="flex justify-center gap-4">
       <button
