@@ -51,7 +51,7 @@ const NavBar = () => {
             {navItems.map((item) => (
               <li
                 key={item.id}
-                className="mx-4 font-semibold text-sm lg:text-base"
+                className="mx-4 font-semibold text-sm lg:text-base hover:text-red-500 hover:text-lg transition-all "
               >
                 <Link to={item.url}>{item.title}</Link>
               </li>
@@ -78,14 +78,14 @@ const NavBar = () => {
                 <div className="absolute  right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
                   >
                     Profile
                   </Link>
 
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 font-semibold py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign Out
                   </button>
@@ -113,13 +113,13 @@ const NavBar = () => {
                 <div className="absolute sm:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
                   >
                     Profile
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 font-semibold text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign Out
                   </button>
