@@ -5,7 +5,7 @@ import {
   FaTruck,
   FaCalendarAlt,
 } from "react-icons/fa";
-import ServiceCard from "./ServiceCard";
+import ServiceCard from "../components/ServiceCard";
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -65,7 +65,7 @@ const Services = () => {
 
   return (
     <section id="services" className="py-12 bg-gray-100">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 max-w-screen-lg">
         <h2 className="text-4xl font-extrabold text-center mb-4 text-gray-800">
           Our Services
         </h2>

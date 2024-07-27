@@ -12,11 +12,11 @@ export const navItems = [
   {
     id: 3,
     title:"About",
-    url: "/about-us",
+    url: "#about",
   },
   {
     id: 4,
     title: "Contact Us",
-    url: "/contact-us",
+    url: "#contact",
   },
 ];

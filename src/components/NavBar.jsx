@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navItems } from "../data/data";
 import { CgShoppingCart } from "react-icons/cg";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -9,6 +9,7 @@ import { signOutSuccess } from "../redux/user/userSlice";
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -19,6 +20,21 @@ const NavBar = () => {
   const handleProfileMenuToggle = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleSignOut = async () => {
     try {
@@ -37,7 +53,11 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="shadow-md sm:px-8">
+    <nav
+      className={`sm:px-8 font-montserrat  sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "border-b border-gray-300 bg-white shadow-md" : ""
+      }`}
+    >
       <div className="flex items-center mx-2 justify-between md:justify-evenly">
         <Link to={"/"}>
           <img
