@@ -4,6 +4,10 @@ import {
   FaConciergeBell,
   FaTruck,
   FaCalendarAlt,
+  FaCocktail,
+  FaBirthdayCake,
+  FaLeaf,
+  FaChild,
 } from "react-icons/fa";
 import ServiceCard from "../components/ServiceCard";
 
@@ -17,45 +21,43 @@ const Services = () => {
           id: 1,
           icon: FaUtensils,
           title: "Dine-In Experience",
-          features: [
-            "Cozy and elegant ambiance",
-            "Family-friendly seating arrangements",
-            "Live music on weekends",
-            "Free Wi-Fi",
-          ],
+          description:
+            "Enjoy a cozy and elegant ambiance with family-friendly seating arrangements. Experience live music on weekends and take advantage of our free Wi-Fi.",
         },
         {
           id: 2,
           icon: FaConciergeBell,
           title: "Reservation Support",
-          features: [
-            "Online table booking system",
-            "Reservation confirmation via email/SMS",
-            "Option to pre-order meals for special occasions",
-            "Special arrangements for celebrations",
-          ],
+          description:
+            "Use our online table booking system and receive reservation confirmations via email or SMS. Pre-order meals for special occasions and get special arrangements for celebrations.",
         },
         {
           id: 3,
           icon: FaTruck,
           title: "Takeaway and Delivery",
-          features: [
-            "Easy online ordering",
-            "Contactless delivery options",
-            "Curbside pickup available",
-            "Loyalty rewards for repeat customers",
-          ],
+          description:
+            "Order easily online with contactless delivery options and curbside pickup available. Earn loyalty rewards for being a repeat customer.",
         },
         {
           id: 4,
           icon: FaCalendarAlt,
           title: "Special Events and Catering",
-          features: [
-            "Catering services for parties and corporate events",
-            "Private dining room for special occasions",
-            "Customizable menus for events",
-            "Professional event planning assistance",
-          ],
+          description:
+            "Avail of our catering services for parties and corporate events. Book our private dining room for special occasions and customize menus with professional event planning assistance.",
+        },
+        {
+          id: 5,
+          icon: FaCocktail,
+          title: "Beverage Selection",
+          description:
+            "Choose from a wide range of beverages including cocktails, mocktails, and premium wines. Enjoy special happy hour discounts on selected drinks.",
+        },
+        {
+          id: 6,
+          icon: FaBirthdayCake,
+          title: "Birthday Celebrations",
+          description:
+            "Celebrate birthdays with our special packages that include customized cakes, decorations, and personalized services to make your day unforgettable.",
         },
       ];
       setServices(data);
@@ -64,22 +66,25 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="services" className="py-12 bg-gray-100">
+    <section id="services" className="py-12 ">
       <div className="container mx-auto px-6 max-w-screen-lg">
-        <h2 className="text-4xl font-extrabold text-center mb-4 text-gray-800">
-          Our Services
+        <p className="font-bold text-center font-montserrat text-sm text-gray-500">
+          SERVICES
+        </p>
+        <h2 className="text-4xl mt-4 font-extrabold font-montserrat text-center mb-4 text-gray-800">
+          Why <span className="text-red-500">Choose us?</span>
         </h2>
         <p className="text-sm text-center font-semibold mb-10 max-w-lg mx-auto text-gray-500">
           Explore the wide range of services we offer to make your dining
           experience unforgettable.
         </p>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <ServiceCard
               key={service.id}
               icon={service.icon}
               title={service.title}
-              features={service.features}
+              description={service.description}
             />
           ))}
         </div>
