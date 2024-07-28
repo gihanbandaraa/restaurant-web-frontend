@@ -3,6 +3,7 @@ import Hero from "../sections/Hero";
 import Services from "../sections/Services";
 import AboutUs from "../sections/AboutUs";
 import Counts from "../sections/Counts";
+import Offers from "../sections/Offers";
 
 const Home = () => {
   return (
@@ -18,6 +19,9 @@ const Home = () => {
       </section>
       <section>
         <Counts />
+      </section>
+      <section className="max-w-screen-lg mx-auto">
+        <Offers />
       </section>
     </main>
   );
