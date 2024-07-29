@@ -59,7 +59,7 @@ const Offers = () => {
         <p className="font-bold font-montserrat text-sm text-gray-500">
           Special Offers
         </p>
-        <h2 className="text-4xl mt-4 font-extrabold font-montserrat mb-4 text-gray-800">
+        <h2 className="text-3xl md:text-4xl mt-4 font-extrabold font-montserrat mb-4 text-gray-800">
           Check Our <span className="text-red-500">Offers</span>
         </h2>
         <p className="text-sm font-semibold mb-10 max-w-lg mx-auto text-gray-500">

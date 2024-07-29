@@ -71,7 +71,7 @@ const Services = () => {
         <p className="font-bold text-center font-montserrat text-sm text-gray-500">
           SERVICES
         </p>
-        <h2 className="text-4xl mt-4 font-extrabold font-montserrat text-center mb-4 text-gray-800">
+        <h2 className="text-3xl md:text-4xl mt-4 font-extrabold font-montserrat text-center mb-4 text-gray-800">
           Why <span className="text-red-500">Choose us?</span>
         </h2>
         <p className="text-sm text-center font-semibold mb-10 max-w-lg mx-auto text-gray-500">

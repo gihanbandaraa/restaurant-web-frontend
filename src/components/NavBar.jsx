@@ -73,7 +73,7 @@ const NavBar = () => {
                 key={item.id}
                 className="mx-4 font-semibold text-sm lg:text-base hover:text-red-500 hover:text-lg transition-all "
               >
-                <Link to={item.url}>{item.title}</Link>
+                <a href={item.url}>{item.title}</a>
               </li>
             ))}
           </ul>
@@ -174,7 +174,7 @@ const NavBar = () => {
         <ul className="flex flex-col items-center">
           {navItems.map((item) => (
             <li key={item.id} className="my-2 font-semibold text-base">
-              <Link to={item.url}>{item.title}</Link>
+              <a href={item.url}>{item.title}</a>
             </li>
           ))}
         </ul>

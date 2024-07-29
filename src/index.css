@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
@@ -59,9 +62,9 @@ ul.slick-dots {
 
 .slick-dots {
   bottom: 0.5px;
-  display: block !important; 
+  display: block !important;
   padding: 10px;
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 
 .slick-dots li button:before {

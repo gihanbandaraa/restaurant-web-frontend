@@ -8,7 +8,7 @@ const BookUs = () => {
         <p className="font-bold font-montserrat text-sm text-gray-500">
           Book Us Now
         </p>
-        <h2 className="text-4xl mt-4 font-extrabold font-montserrat mb-4 text-gray-800">
+        <h2 className="text-3xl md:text-4xl mt-4 font-extrabold font-montserrat mb-4 text-gray-800">
           Reserve Your <span className="text-red-500">Spot</span>
         </h2>
         <p className="text-sm font-semibold mb-10 max-w-lg text-gray-500">
