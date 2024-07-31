@@ -20,7 +20,7 @@ const Chefs = () => {
           {chefs.map((chef) => (
             <div
               key={chef.id}
-              className="flex flex-col items-center gap-4  p-4 my-5 md:my-10 mx-5 bg-white shadow-lg rounded-md hover:scale-110 cursor-pointer transition duration-300"
+              className="flex flex-col items-center gap-4  p-4 my-5 md:my-10 mx-5 bg-white shadow-lg rounded-lg hover:scale-110 cursor-pointer transition duration-300"
             >
               <img
                 src={chef.imageUrl}
@@ -28,10 +28,10 @@ const Chefs = () => {
                 className="rounded-full w-32 h-32 object-cover object-center"
               />
               <div className="text-center">
-                <h3 className="font-bold font-montserrat text-lg text-gray-800">
+                <h3 className="font-extrabold font-montserrat text-lg text-gray-800">
                   {chef.name}
                 </h3>
-                <p className="text-sm font-poppins text-gray-500">
+                <p className="text-sm font-medium font-poppins text-red-500">
                   {chef.title}
                 </p>
                 <p className="text-xs font-poppins text-gray-600 mt-2">
