@@ -57,20 +57,22 @@ const AboutUs = () => {
               Welcome to Serendib Savor
             </h2>
             <p className="font-montserrat text-sm mt-2">
-              At Serendib Savor, we are dedicated to bringing the authentic
-              flavors of Sri Lanka to your table. Our journey started with a
-              love for Sri Lankan cuisine and a passion for sharing it with our
-              community.
+              At Serendib Savor, we pride ourselves on offering a diverse range
+              of culinary delights to suit every palate. From traditional Sri
+              Lankan dishes to international favorites, our menu caters to all
+              tastes. With several branches across the region, we're committed
+              to providing exceptional dining experiences wherever you are.
             </p>
             <h2 className="font-montserrat text-sm font-bold mt-4">
               Our Story
             </h2>
             <p className="font-montserrat text-sm mt-2">
-              Founded by a group of food enthusiasts, Serendib Savor was born
-              from our travels across Sri Lanka, gathering recipes and learning
-              the secrets of authentic Sri Lankan cooking. We strive to offer a
-              unique dining experience that reflects the rich cultural heritage
-              of our beloved island.
+              Founded by a group of food enthusiasts, Serendib Savor emerged
+              from our travels across Sri Lanka, where we gathered diverse
+              recipes and uncovered the secrets of authentic Sri Lankan cuisine.
+              We aim to provide a unique dining experience that celebrates the
+              rich cultural heritage of our beloved island while offering a
+              variety of dishes to suit every preference.
             </p>
           </div>
           <div className="group overflow-hidden mt-2 cursor-pointer">
