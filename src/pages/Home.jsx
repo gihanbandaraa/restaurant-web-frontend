@@ -6,6 +6,8 @@ import Counts from "../sections/Counts";
 import Offers from "../sections/Offers";
 import BookUs from "../sections/BookUs";
 import Chefs from "../sections/Chefs";
+import Contact from "../sections/Contact";
+import Gallery from "../sections/Gallery";
 
 const Home = () => {
   return (
@@ -28,8 +30,14 @@ const Home = () => {
       <section className="max-w-screen-lg mx-auto">
         <BookUs />
       </section>
-      <section id="chefs" >
+      <section id="chefs">
         <Chefs />
+      </section>
+      <section  className="max-w-screen-lg mx-auto">
+        <Gallery />
+      </section>
+      <section>
+        <Contact />
       </section>
     </main>
   );
