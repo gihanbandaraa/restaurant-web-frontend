@@ -36,7 +36,7 @@ const Home = () => {
       <section  className="max-w-screen-lg mx-auto">
         <Gallery />
       </section>
-      <section>
+      <section id='contact' className="max-w-screen-lg mx-auto">
         <Contact />
       </section>
     </main>
