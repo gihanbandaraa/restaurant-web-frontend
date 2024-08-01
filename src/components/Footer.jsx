@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="mt-20 shadow-lg  shadow-black p-10">
+    <footer className=" shadow-2xl  shadow-black py-20 px-10">
       <div className="max-w-screen-lg mx-auto  flex flex-col md:flex-row justify-between ">
         {/* Left Side */}
         <div className="md:w-1/3 ">
