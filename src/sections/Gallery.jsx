@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -18,7 +18,7 @@ import { EffectCoverflow, Pagination } from "swiper/modules";
 
 const Gallery = () => {
   return (
-    <>
+    <div className="border-b-2 border-gray-100 pb-8"> {/* Add bottom border here */}
       <div className="flex mt-8 items-center justify-center flex-col gap-4 text-center">
         <p className="font-bold font-montserrat text-sm text-gray-500">
           GALLERY
@@ -54,7 +54,7 @@ const Gallery = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 

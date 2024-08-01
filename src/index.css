@@ -80,9 +80,6 @@ ul.slick-dots {
   transition: transform 0.5s ease;
 }
 
-
-
-
 .swiper {
   width: 100%;
   padding-top: 50px;
@@ -102,9 +99,8 @@ ul.slick-dots {
 }
 .swiper-pagination-bullet {
   background-color: #ccc;
- 
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #ff6347;
+  background-color: rgb(239, 68, 68);
 }
