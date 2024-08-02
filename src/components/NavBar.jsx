@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navItems } from "../data/data";
 import { CgShoppingCart } from "react-icons/cg";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -9,6 +9,7 @@ import { signOutSuccess } from "../redux/user/userSlice";
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -19,6 +20,21 @@ const NavBar = () => {
   const handleProfileMenuToggle = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleSignOut = async () => {
     try {
@@ -37,7 +53,11 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="shadow-md sm:px-8">
+    <nav
+      className={`sm:px-8 font-montserrat  sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "border-b border-gray-300 bg-white shadow-md" : ""
+      }`}
+    >
       <div className="flex items-center mx-2 justify-between md:justify-evenly">
         <Link to={"/"}>
           <img
@@ -51,9 +71,9 @@ const NavBar = () => {
             {navItems.map((item) => (
               <li
                 key={item.id}
-                className="mx-4 font-semibold text-sm lg:text-base"
+                className="mx-4 font-semibold text-sm lg:text-base hover:text-red-500 hover:text-lg transition-all "
               >
-                <Link to={item.url}>{item.title}</Link>
+                <a href={item.url}>{item.title}</a>
               </li>
             ))}
           </ul>
@@ -78,14 +98,14 @@ const NavBar = () => {
                 <div className="absolute  right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
                   >
                     Profile
                   </Link>
 
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 font-semibold py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign Out
                   </button>
@@ -113,13 +133,13 @@ const NavBar = () => {
                 <div className="absolute sm:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <Link
                     to="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
                   >
                     Profile
                   </Link>
                   <button
                     onClick={handleSignOut}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block w-full text-left px-4 py-2 font-semibold text-sm text-gray-700 hover:bg-gray-100"
                   >
                     Sign Out
                   </button>
@@ -154,7 +174,7 @@ const NavBar = () => {
         <ul className="flex flex-col items-center">
           {navItems.map((item) => (
             <li key={item.id} className="my-2 font-semibold text-base">
-              <Link to={item.url}>{item.title}</Link>
+              <a href={item.url}>{item.title}</a>
             </li>
           ))}
         </ul>

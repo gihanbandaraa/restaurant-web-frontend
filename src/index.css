@@ -1,9 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
@@ -31,7 +34,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border-left-color:red;
+  border-left-color: red;
   animation: spin 1s ease infinite;
 }
 
@@ -42,4 +45,62 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+ul.slick-dots {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slick-dots {
+  bottom: 0.5px;
+  display: block !important;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: gray !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: red !important;
+}
+
+.carousel-item {
+  transition: transform 0.5s ease;
+}
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+.swiper-pagination-bullet {
+  background-color: #ccc;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: rgb(239, 68, 68);
 }
