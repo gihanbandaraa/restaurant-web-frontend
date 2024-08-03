@@ -12,12 +12,17 @@ export const navItems = [
   {
     id: 3,
     title: "About",
-    url: "#about",
+    url: "/#about",
   },
   {
     id: 4,
     title: "Contact Us",
-    url: "#contact",
+    url: "/#contact",
+  },
+  {
+    id: 5,
+    title: "Gallery",
+    url: "/#gallery",
   },
 ];
 

@@ -58,7 +58,7 @@ const NavBar = () => {
         isScrolled ? "border-b border-gray-300 bg-white shadow-md" : ""
       }`}
     >
-      <div className="flex items-center mx-2 justify-between md:justify-evenly">
+      <div className="flex items-center mx-2 justify-between lg:justify-evenly">
         <Link to={"/"}>
           <img
             src="/Images/serendib-savor.svg"
@@ -66,7 +66,7 @@ const NavBar = () => {
             className="w-36 sm:w-48"
           />
         </Link>
-        <div className="hidden md:flex flex-row">
+        <div className="hidden lg:flex flex-row">
           <ul className="flex flex-row">
             {navItems.map((item) => (
               <li
@@ -79,7 +79,7 @@ const NavBar = () => {
           </ul>
         </div>
 
-        <div className="hidden md:flex gap-4 items-center">
+        <div className="hidden lg:flex gap-4 items-center">
           <div className="cursor-pointer flex">
             <CgShoppingCart size={32} />
             <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
@@ -125,12 +125,12 @@ const NavBar = () => {
             <div className="relative">
               <img
                 src={currentUser.profilePicture}
-                className="rounded-full block md:hidden"
+                className="rounded-full block lg:hidden"
                 width={38}
                 onClick={handleProfileMenuToggle}
               />
               {isProfileMenuOpen && (
-                <div className="absolute sm:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                <div className="absolute lg:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <Link
                     to="/profile"
                     className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
@@ -153,7 +153,7 @@ const NavBar = () => {
               </div>
             </Link>
           )}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={handleMobileMenuToggle}
               className={`text-3xl ${isMobileMenuOpen ? "animate-spin" : ""}`}
@@ -165,7 +165,7 @@ const NavBar = () => {
       </div>
 
       <div
-        className={`md:hidden flex flex-col  items-center transition-all duration-700 ${
+        className={`lg:hidden flex flex-col  items-center transition-all duration-700 ${
           isMobileMenuOpen
             ? "max-h-screen opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
@@ -179,7 +179,7 @@ const NavBar = () => {
           ))}
         </ul>
         <div className="flex flex-col items-center mt-4">
-          <div className="cursor-pointer mb-4 flex">
+          <div className="cursor-pointer mb-4 flex py-5">
             <CgShoppingCart size={32} />
             <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
               2

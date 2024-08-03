@@ -33,7 +33,7 @@ const Home = () => {
       <section id="chefs">
         <Chefs />
       </section>
-      <section  className="max-w-screen-lg mx-auto">
+      <section id="gallery"  className="max-w-screen-lg mx-auto">
         <Gallery />
       </section>
       <section id='contact' className="max-w-screen-lg mx-auto">
