@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { BiCategory } from "react-icons/bi";
+import { FaHome, FaSearch } from "react-icons/fa";
+import { GrGallery } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
-import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
+import { MdRestaurantMenu } from "react-icons/md";
+import {
+  RiMenu3Fill,
+  RiCloseFill,
+  RiCalendarScheduleLine,
+} from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const AdminNavBar = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -12,6 +20,53 @@ const AdminNavBar = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const Navigation = () => (
+    <nav>
+      <ul>
+        <Link to={"/admin"}>
+          <li className="mb-4 text-gray-700 p-2 rounded-lg hover:bg-slate-300 transform duration-300">
+            <div className="flex items-center  gap-3">
+              <FaHome />
+              <p className="font-montserrat font-semibold">Dashboard</p>
+            </div>
+          </li>
+        </Link>
+        <Link to={"admin/update-menu"}>
+          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+            <div className="flex items-center  gap-3">
+              <MdRestaurantMenu />
+              <p className="font-montserrat font-semibold">Menu items</p>
+            </div>
+          </li>
+        </Link>
+        <Link to={"admin/categories"}>
+          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+            <div className="flex items-center  gap-3">
+              <BiCategory />
+              <p className="font-montserrat font-semibold">Categories</p>
+            </div>
+          </li>
+        </Link>
+        <Link to={"admin/reservations"}>
+          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+            <div className="flex items-center  gap-3">
+              <RiCalendarScheduleLine />
+              <p className="font-montserrat font-semibold">Reservations</p>
+            </div>
+          </li>
+        </Link>
+        <Link to={"admin/gallery"}>
+          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+            <div className="flex items-center  gap-3">
+              <GrGallery />
+              <p className="font-montserrat font-semibold">Gallery</p>
+            </div>
+          </li>
+        </Link>
+      </ul>
+    </nav>
+  );
+
   return (
     <>
       <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-10">
@@ -20,7 +75,7 @@ const AdminNavBar = () => {
             <img
               src="/Images/serendib-savor.svg"
               alt="Serendib Savor Logo"
-              className="w-24 md:w-40 cursor-pointer"
+              className="w-32 md:w-40 cursor-pointer"
             />
             <div className="hidden md:flex py-2 px-4 text-sm bg-gray-100 rounded-2xl items-center gap-2">
               <input
@@ -63,15 +118,17 @@ const AdminNavBar = () => {
         </div>
       </nav>
       <div
-        className={`fixed top-0 left-0 w-64 bg-gray-200 h-screen z-20 transform ${
-          menuOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 left-0 w-64 bg-gray-100 h-screen z-20 transform ${
+          menuOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:hidden`}
       >
         <div className="p-4 flex justify-end">
-          <RiCloseFill className="w-6 h-6 cursor-pointer" onClick={toggleMenu} />
+          <RiCloseFill
+            className="w-6 h-6 cursor-pointer"
+            onClick={toggleMenu}
+          />
         </div>
         <div className="px-4">
-          {/* Add your sidebar navigation items here */}
           <div className="py-2 px-4 text-sm bg-gray-100 rounded-2xl mb-4 flex items-center gap-2">
             <input
               type="search"
@@ -83,26 +140,13 @@ const AdminNavBar = () => {
             />
             <FaSearch className="text-gray-500" />
           </div>
-          <nav>
-            <ul>
-              <li className="mb-4">
-                <a href="#" className="text-gray-700">Home</a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="text-gray-700">About</a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="text-gray-700">Services</a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="text-gray-700">Contact</a>
-              </li>
-            </ul>
-          </nav>
+          <Navigation />
         </div>
       </div>
-      <section className="fixed top-[70px] left-0 w-[300px] bg-gray-200 h-screen hidden md:block">
-        <div>test</div>
+      <section className="fixed top-[120px] left-0 w-[300px]  shadow-lg h-screen hidden md:block">
+        <div className="px-4 py-6">
+          <Navigation />
+        </div>
       </section>
     </>
   );

@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const AdminDashboard = () => {
   return (
-    <div>AdminDashboard</div>
-  )
-}
+    <section className="fixed-container">
+      <div className="">Our Dashboard</div>
+    </section>
+  );
+};
 
-export default AdminDashboard
+export default AdminDashboard;
