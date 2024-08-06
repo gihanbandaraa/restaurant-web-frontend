@@ -25,7 +25,7 @@ const AdminNavBar = () => {
       <ul>
         <Link to={"/admin"}>
           <li className="mb-4 text-gray-700 p-2 rounded-lg hover:bg-slate-300 transform duration-300">
-            <div className="flex items-center  gap-3">
+            <div className="flex items-center gap-3">
               <FaHome />
               <p className="font-montserrat font-semibold">Dashboard</p>
             </div>
@@ -33,15 +33,15 @@ const AdminNavBar = () => {
         </Link>
         <Link to={"admin/update-menu"}>
           <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
-            <div className="flex items-center  gap-3">
+            <div className="flex items-center gap-3">
               <MdRestaurantMenu />
               <p className="font-montserrat font-semibold">Menu items</p>
             </div>
           </li>
         </Link>
-        <Link to={"admin/categories"}>
+        <Link to={"admin/add-categories"}>
           <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
-            <div className="flex items-center  gap-3">
+            <div className="flex items-center gap-3">
               <BiCategory />
               <p className="font-montserrat font-semibold">Categories</p>
             </div>
@@ -49,7 +49,7 @@ const AdminNavBar = () => {
         </Link>
         <Link to={"admin/reservations"}>
           <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
-            <div className="flex items-center  gap-3">
+            <div className="flex items-center gap-3">
               <RiCalendarScheduleLine />
               <p className="font-montserrat font-semibold">Reservations</p>
             </div>
@@ -57,7 +57,7 @@ const AdminNavBar = () => {
         </Link>
         <Link to={"admin/gallery"}>
           <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
-            <div className="flex items-center  gap-3">
+            <div className="flex items-center gap-3">
               <GrGallery />
               <p className="font-montserrat font-semibold">Gallery</p>
             </div>
@@ -143,7 +143,7 @@ const AdminNavBar = () => {
           <Navigation />
         </div>
       </div>
-      <section className="fixed top-[120px] left-0 w-[300px]  shadow-lg h-screen hidden md:block">
+      <section className="fixed top-[120px] left-0 w-[300px] shadow-lg h-screen hidden md:block">
         <div className="px-4 py-6">
           <Navigation />
         </div>

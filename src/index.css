@@ -107,6 +107,37 @@ ul.slick-dots {
 
 @layer components {
   .fixed-container {
-    @apply fixed top-[100px] md:top-[120px] md:left-[320px] bg-slate-100 w-full h-screen;
+    @apply fixed top-[100px] md:top-[120px] left-0 md:left-[300px] right-0 bg-slate-100 h-screen overflow-auto p-4 transition-all duration-300;
+  }
+}
+
+.line-loader {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background-color: #e0e0e0;
+  overflow: hidden;
+}
+
+.line-loader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #f56565;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
   }
 }

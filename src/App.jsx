@@ -15,6 +15,7 @@ import AdminRoute from "./components/AdminRoute";
 import AdminNavBar from "./pages/Admin/components/AdminNavBar";
 import UpdateMenu from "./pages/Admin/pages/UpdateMenu";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AddCategories from "./pages/Admin/pages/AddCategories";
 
 const App = () => {
   const location = useLocation();
@@ -28,6 +29,7 @@ const App = () => {
     "/sign-up",
     "/admin",
     "/admin/update-menu",
+    "/admin/add-categories",
   ];
 
   const isDefinedRoute = routes.includes(location.pathname);
@@ -41,6 +43,7 @@ const App = () => {
           <Route path="/admin/*" element={<AdminRoute />}>
             <Route path="" element={<AdminDashboard />} />
             <Route path="update-menu" element={<UpdateMenu />} />
+            <Route path="add-categories" element={<AddCategories />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (

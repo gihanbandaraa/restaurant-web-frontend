@@ -10,14 +10,14 @@ const Alert = ({ type, message, showAlert, onClose }) => {
       const timer = setTimeout(() => {
         setVisible(false);
         onClose();
-      }, 3000); // Adjust the duration as needed
+      }, 3000); 
       return () => clearTimeout(timer);
     }
   }, [showAlert, onClose]);
 
   return (
     <div
-      className={` absolute top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-opacity duration-300 ${
+      className={` absolute top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-opacity  duration-300 ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       } ${type === "success" ? "bg-green-500" : "bg-red-500"}`}
     >
