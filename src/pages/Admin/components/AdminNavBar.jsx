@@ -10,11 +10,13 @@ import {
   RiCalendarScheduleLine,
 } from "react-icons/ri";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const AdminNavBar = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -23,40 +25,70 @@ const AdminNavBar = () => {
   const Navigation = () => (
     <nav>
       <ul>
-        <Link to={"/admin"}>
-          <li className="mb-4 text-gray-700 p-2 rounded-lg hover:bg-slate-300 transform duration-300">
+        <Link to="/admin">
+          <li
+            className={`mb-4 text-gray-700 p-2 rounded-lg transform duration-300 ${
+              location.pathname === "/admin"
+                ? "bg-red-400 text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
             <div className="flex items-center gap-3">
               <FaHome />
               <p className="font-montserrat font-semibold">Dashboard</p>
             </div>
           </li>
         </Link>
-        <Link to={"admin/update-menu"}>
-          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+        <Link to="/admin/update-menu">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/update-menu"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
             <div className="flex items-center gap-3">
               <MdRestaurantMenu />
               <p className="font-montserrat font-semibold">Menu items</p>
             </div>
           </li>
         </Link>
-        <Link to={"admin/add-categories"}>
-          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+        <Link to="/admin/add-categories">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/add-categories"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
             <div className="flex items-center gap-3">
               <BiCategory />
               <p className="font-montserrat font-semibold">Categories</p>
             </div>
           </li>
         </Link>
-        <Link to={"admin/reservations"}>
-          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+        <Link to="/admin/reservations">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/reservations"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
             <div className="flex items-center gap-3">
               <RiCalendarScheduleLine />
               <p className="font-montserrat font-semibold">Reservations</p>
             </div>
           </li>
         </Link>
-        <Link to={"admin/gallery"}>
-          <li className="mb-4 p-2 text-gray-700 rounded-lg hover:bg-slate-300 transform duration-300">
+        <Link to="/admin/gallery">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/gallery"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
             <div className="flex items-center gap-3">
               <GrGallery />
               <p className="font-montserrat font-semibold">Gallery</p>
@@ -66,7 +98,6 @@ const AdminNavBar = () => {
       </ul>
     </nav>
   );
-
   return (
     <>
       <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-10">

@@ -247,6 +247,7 @@ const AddCategories = () => {
                 Category Name
               </label>
               <input
+                placeholder="Enter name of the category"
                 type="text"
                 id="categoryName"
                 value={categoryName}
