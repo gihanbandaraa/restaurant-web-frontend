@@ -14,13 +14,13 @@ const MenuItemCard = ({ item }) => {
         <p className="text-gray-600 mb-2 text-sm lg:text-base">
           {item.description}
         </p>
-        <div className="flex justify-between items-center mb-2 font-montserrat">
+        <div className="flex flex-col gap-4 mb-2 font-montserrat">
           <h2 className="text-sm sm:text-base text-red-500 font-semibold">
             Rs. {item.price}
           </h2>
           {item.offers && (
-            <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
-              {item.offers} Off
+            <span className="bg-green-500 text-white w-fit text-xs px-2 py-1 rounded">
+              {item.offers}
             </span>
           )}
         </div>
