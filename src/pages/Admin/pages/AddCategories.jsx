@@ -18,25 +18,26 @@ const AddCategories = () => {
   const { alertInfo, handleShowAlert, handleCloseAlert } = useAlert();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch("/api/admin/get-categories");
-        const data = await res.json();
-
-        if (res.ok) {
-          setCategories(data || []);
-        } else {
-          handleShowAlert("error", data.message);
-        }
-      } catch (error) {
-        handleShowAlert("error", "Something went wrong!");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchCategories();
   }, []);
+
+  const fetchCategories = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/get-category-counts");
+      const data = await res.json();
+
+      if (res.ok) {
+        setCategories(data || []);
+      } else {
+        handleShowAlert("error", data.message);
+      }
+    } catch (error) {
+      handleShowAlert("error", "Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);
@@ -78,8 +79,8 @@ const AddCategories = () => {
         return;
       }
       setCategoryName("");
-      setCategories([...categories, data.category]);
       handleShowAlert("success", "Category added successfully!");
+      fetchCategories(); // Refresh categories
     } catch (error) {
       setCategoryName("");
       handleShowAlert("error", "Something went wrong!");
@@ -110,12 +111,8 @@ const AddCategories = () => {
         handleShowAlert("error", data.message);
         return;
       }
-      setCategories(
-        categories.map((cat) =>
-          cat._id === currentCategory._id ? data.category : cat
-        )
-      );
       handleShowAlert("success", "Category updated successfully!");
+      fetchCategories(); // Refresh categories
     } catch (error) {
       handleShowAlert("error", "Something went wrong!");
     }
@@ -137,16 +134,14 @@ const AddCategories = () => {
         handleShowAlert("error", data.message);
         return;
       }
-      setCategories(
-        categories.filter((cat) => cat._id !== categoryToDelete._id)
-      );
       handleShowAlert("success", "Category deleted successfully!");
+      fetchCategories(); // Refresh categories
     } catch (error) {
       handleShowAlert("error", "Something went wrong!");
     }
     closeConfirmDeleteModal();
   };
-
+  
   return (
     <>
       <section className="fixed-container">
@@ -192,7 +187,7 @@ const AddCategories = () => {
                         {category.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        2
+                        {category.itemCount}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap flex items-center gap-4 text-sm text-gray-500">
                         <button
