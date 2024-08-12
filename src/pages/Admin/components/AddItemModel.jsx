@@ -48,7 +48,7 @@ const AddItemModal = ({ isOpen, onClose, categories, selectedCategory }) => {
   const uploadImage = async () => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imageFile.name;
-    const storageRef = ref(storage, fileName);
+    const storageRef = ref(storage, `menuImages/${fileName}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
     return new Promise((resolve, reject) => {

@@ -54,7 +54,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`sm:px-8 font-montserrat  sticky top-0 z-50 transition-all duration-300 ${
+      className={`sm:px-8 font-montserrat sticky top-0 z-50 transition-all duration-300 ${
         isScrolled ? "border-b border-gray-300 bg-white shadow-md" : ""
       }`}
     >

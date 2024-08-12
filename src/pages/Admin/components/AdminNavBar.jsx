@@ -103,11 +103,13 @@ const AdminNavBar = () => {
       <nav className="bg-white shadow-md fixed top-0 left-0 right-0 z-0">
         <div className="container mx-auto px-4 md:px-10 flex justify-between items-center py-2">
           <div className="flex items-center gap-4">
-            <img
-              src="/Images/serendib-savor.svg"
-              alt="Serendib Savor Logo"
-              className="w-32 md:w-40 cursor-pointer"
-            />
+            <Link to="/">
+              <img
+                src="/Images/serendib-savor.svg"
+                alt="Serendib Savor Logo"
+                className="w-32 md:w-40 cursor-pointer"
+              />
+            </Link>
             <div className="hidden md:flex py-2 px-4 text-sm bg-gray-100 rounded-2xl items-center gap-2">
               <input
                 type="search"
