@@ -67,7 +67,7 @@ const AdminNavBar = () => {
             </div>
           </li>
         </Link>
-        <Link to="/admin/reservations">
+        <Link to="/admin/reservation">
           <li
             className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
               location.pathname === "/admin/reservations"

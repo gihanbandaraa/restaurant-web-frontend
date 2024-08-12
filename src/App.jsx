@@ -16,6 +16,8 @@ import AdminNavBar from "./pages/Admin/components/AdminNavBar";
 import UpdateMenu from "./pages/Admin/pages/UpdateMenu";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AddCategories from "./pages/Admin/pages/AddCategories";
+import UpdateGallery from "./pages/Admin/pages/UpdateGallery";
+import ManageReservation from "./pages/Admin/pages/ManageReservation";
 
 const App = () => {
   const location = useLocation();
@@ -30,6 +32,8 @@ const App = () => {
     "/admin",
     "/admin/update-menu",
     "/admin/add-categories",
+    "/admin/gallery",
+    "/admin/reservation",
   ];
 
   const isDefinedRoute = routes.includes(location.pathname);
@@ -44,6 +48,8 @@ const App = () => {
             <Route path="" element={<AdminDashboard />} />
             <Route path="update-menu" element={<UpdateMenu />} />
             <Route path="add-categories" element={<AddCategories />} />
+            <Route path="gallery" element={<UpdateGallery />} />
+            <Route path="reservation" element={<ManageReservation />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (

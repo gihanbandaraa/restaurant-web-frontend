@@ -80,7 +80,7 @@ const AddCategories = () => {
       }
       setCategoryName("");
       handleShowAlert("success", "Category added successfully!");
-      fetchCategories(); // Refresh categories
+      fetchCategories();
     } catch (error) {
       setCategoryName("");
       handleShowAlert("error", "Something went wrong!");
@@ -95,7 +95,6 @@ const AddCategories = () => {
       return;
     }
     try {
-      // Replace with your edit category API endpoint
       const res = await fetch(
         `/api/admin/update-category/${currentCategory._id}`,
         {
@@ -112,7 +111,7 @@ const AddCategories = () => {
         return;
       }
       handleShowAlert("success", "Category updated successfully!");
-      fetchCategories(); // Refresh categories
+      fetchCategories();
     } catch (error) {
       handleShowAlert("error", "Something went wrong!");
     }
@@ -135,13 +134,13 @@ const AddCategories = () => {
         return;
       }
       handleShowAlert("success", "Category deleted successfully!");
-      fetchCategories(); // Refresh categories
+      fetchCategories(); 
     } catch (error) {
       handleShowAlert("error", "Something went wrong!");
     }
     closeConfirmDeleteModal();
   };
-  
+
   return (
     <>
       <section className="fixed-container">

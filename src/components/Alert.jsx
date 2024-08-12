@@ -10,18 +10,18 @@ const Alert = ({ type, message, showAlert, onClose }) => {
       const timer = setTimeout(() => {
         setVisible(false);
         onClose();
-      }, 3000); 
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showAlert, onClose]);
 
   return (
     <div
-      className={` absolute top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-opacity  duration-300 ${
+      className={` fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-opacity  duration-300 ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       } ${type === "success" ? "bg-green-500" : "bg-red-500"}`}
     >
-      <div className="flex items-center">
+      <div className="flex text-sm md:text-base items-center">
         {type === "success" ? (
           <FaCheckCircle className="text-white mr-2" />
         ) : (
