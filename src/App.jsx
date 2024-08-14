@@ -18,6 +18,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AddCategories from "./pages/Admin/pages/AddCategories";
 import UpdateGallery from "./pages/Admin/pages/UpdateGallery";
 import ManageReservation from "./pages/Admin/pages/ManageReservation";
+import ManageOffers from "./pages/Admin/pages/ManageOffers";
 
 const App = () => {
   const location = useLocation();
@@ -34,6 +35,7 @@ const App = () => {
     "/admin/add-categories",
     "/admin/gallery",
     "/admin/reservation",
+    "/admin/offers",
   ];
 
   const isDefinedRoute = routes.includes(location.pathname);
@@ -50,6 +52,7 @@ const App = () => {
             <Route path="add-categories" element={<AddCategories />} />
             <Route path="gallery" element={<UpdateGallery />} />
             <Route path="reservation" element={<ManageReservation />} />
+            <Route path="offers" element={<ManageOffers />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (

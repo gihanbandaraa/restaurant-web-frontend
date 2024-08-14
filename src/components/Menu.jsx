@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Menu = () => {
   return (
-    <div className='min-h-screen'>Menu</div>
-  )
-}
+    <section className="min-h-screen">
+     
+    </section>
+  );
+};
 
-export default Menu
+export default Menu;

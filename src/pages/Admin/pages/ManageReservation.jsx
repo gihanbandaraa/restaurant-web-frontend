@@ -259,8 +259,8 @@ const ManageReservation = () => {
                     } else {
                       handleReject(selectedReservationId);
                     }
-                    setSelectedReservationId(null); // Close modal after action
-                    setModalType(""); // Reset modal type
+                    setSelectedReservationId(null);
+                    setModalType("");
                   }}
                   onClose={() => setSelectedReservationId(null)}
                   isOpen={true}

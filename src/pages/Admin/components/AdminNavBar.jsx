@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BiCategory } from "react-icons/bi";
+import { BiCategory, BiSolidOffer } from "react-icons/bi";
 import { FaHome, FaSearch } from "react-icons/fa";
 import { GrGallery } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
@@ -78,6 +78,20 @@ const AdminNavBar = () => {
             <div className="flex items-center gap-3">
               <RiCalendarScheduleLine />
               <p className="font-montserrat font-semibold">Reservations</p>
+            </div>
+          </li>
+        </Link>
+        <Link to="/admin/offers">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/offers"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <BiSolidOffer />
+              <p className="font-montserrat font-semibold">Offers</p>
             </div>
           </li>
         </Link>
