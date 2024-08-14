@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import useAlert from "../hooks/useAlert"; // Assuming you have a custom useAlert hook
 import Alert from "../components/Alert";
@@ -12,14 +12,22 @@ const BookUs = () => {
     time: "",
     people: "",
     message: "",
+    branch: "", // Added branch to the form data
   });
 
   const { alertInfo, handleShowAlert, handleCloseAlert } = useAlert();
+  const [minDate, setMinDate] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  useEffect(() => {
+    // Set the minimum date to today
+    const today = moment().format("YYYY-MM-DD");
+    setMinDate(today);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +44,6 @@ const BookUs = () => {
 
     // Format date using Moment.js
     const formattedDate = moment(formData.date).format("YYYY-MM-DD");
-    console
 
     const reservationData = {
       ...formData,
@@ -67,6 +74,7 @@ const BookUs = () => {
           time: "",
           people: "",
           message: "",
+          branch: "", // Reset branch field
         });
       } else {
         handleShowAlert(
@@ -148,6 +156,7 @@ const BookUs = () => {
                 id="date"
                 name="date"
                 value={formData.date}
+                min={minDate}
                 onChange={handleChange}
                 placeholder="Date"
                 className="p-3 border border-gray-300 rounded outline-none w-full md:w-1/3"
@@ -174,6 +183,23 @@ const BookUs = () => {
                 required
                 min="1"
               />
+            </div>
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <select
+                id="branch"
+                name="branch"
+                value={formData.branch}
+                onChange={handleChange}
+                className="p-3 border border-gray-300 rounded outline-none w-full  text-xs"
+                required
+              >
+                <option value="" disabled>
+                  Select Branch
+                </option>
+                <option value="Colombo">Colombo</option>
+                <option value="Galle">Galle</option>
+                <option value="Kandy">Kandy</option>
+              </select>
             </div>
             <div>
               <textarea

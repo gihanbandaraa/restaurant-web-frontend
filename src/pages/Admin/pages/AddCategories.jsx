@@ -150,7 +150,7 @@ const AddCategories = () => {
           showAlert={alertInfo.showAlert}
           onClose={handleCloseAlert}
         />
-        <div className="py-5 max-w-screen-lg mx-auto">
+        <div className="py-5 max-w-screen-xl mx-auto">
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-sm md:text-xl font-bold font-montserrat">Categories</h1>
             <div

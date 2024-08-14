@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 import useAlert from "../../../hooks/useAlert";
 import Alert from "../../../components/Alert";
+import ConfirmModal from "../../../components/ConfirmModal";
 
 const ManageReservation = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [selectedReservationId, setSelectedReservationId] = useState(null);
+  const [modalType, setModalType] = useState(""); // "confirm" or "reject"
+
   const { alertInfo, handleShowAlert, handleCloseAlert } = useAlert();
+
+  const openConfirmModal = (reservation, type) => {
+    setSelectedReservationId(reservation._id);
+    setModalType(type);
+  };
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -102,7 +112,7 @@ const ManageReservation = () => {
 
   return (
     <section className="fixed-container p-4">
-      <div className="max-w-screen-lg mx-auto py-5">
+      <div className="max-w-screen-xl mx-auto py-5">
         <h1 className="text-lg font-bold mb-6 font-montserrat">
           Manage Reservations
         </h1>
@@ -130,6 +140,9 @@ const ManageReservation = () => {
                       Phone
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Message
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -137,6 +150,9 @@ const ManageReservation = () => {
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       People
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Branch
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
@@ -159,6 +175,9 @@ const ManageReservation = () => {
                         {reservation.phone}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {reservation.message}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {reservation.date}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -166,6 +185,9 @@ const ManageReservation = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {reservation.people}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {reservation.branch}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {reservation.status === "confirmed" ? (
@@ -185,14 +207,12 @@ const ManageReservation = () => {
                         reservation.status === "rejected" ? (
                           <>
                             <button
-                              onClick={() => handleConfirm(reservation._id)}
                               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 ease-in-out"
                               disabled
                             >
                               Confirm
                             </button>
                             <button
-                              onClick={() => handleReject(reservation._id)}
                               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200 ease-in-out"
                               disabled
                             >
@@ -202,13 +222,17 @@ const ManageReservation = () => {
                         ) : (
                           <>
                             <button
-                              onClick={() => handleConfirm(reservation._id)}
+                              onClick={() =>
+                                openConfirmModal(reservation, "confirm")
+                              }
                               className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 ease-in-out"
                             >
                               Confirm
                             </button>
                             <button
-                              onClick={() => handleReject(reservation._id)}
+                              onClick={() =>
+                                openConfirmModal(reservation, "reject")
+                              }
                               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200 ease-in-out"
                             >
                               Reject
@@ -220,9 +244,31 @@ const ManageReservation = () => {
                   ))}
                 </tbody>
               </table>
+
+              {selectedReservationId && modalType && (
+                <ConfirmModal
+                  title={
+                    modalType === "confirm"
+                      ? "Confirm Reservation"
+                      : "Reject Reservation"
+                  }
+                  message={`Are you sure you want to ${modalType} this reservation?`}
+                  onConfirm={() => {
+                    if (modalType === "confirm") {
+                      handleConfirm(selectedReservationId);
+                    } else {
+                      handleReject(selectedReservationId);
+                    }
+                    setSelectedReservationId(null); // Close modal after action
+                    setModalType(""); // Reset modal type
+                  }}
+                  onClose={() => setSelectedReservationId(null)}
+                  isOpen={true}
+                />
+              )}
             </div>
           ) : (
-            <p className="text-gray-500">No reservations found.</p>
+            <p>No reservations found.</p>
           )}
         </div>
       </div>

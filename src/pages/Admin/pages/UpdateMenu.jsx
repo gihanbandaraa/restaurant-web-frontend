@@ -116,7 +116,7 @@ const UpdateMenu = () => {
         onClose={handleCloseAlert}
       />
 
-      <div className="py-5 max-w-screen-lg mx-auto">
+      <div className="py-5 max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center mb-4">
           <h1 className="text-sm md:text-xl font-bold">Menu Items</h1>
           <div
