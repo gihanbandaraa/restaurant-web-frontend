@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import moment from "moment";
 import useAlert from "../hooks/useAlert"; // Assuming you have a custom useAlert hook
 import Alert from "../components/Alert";
 
@@ -16,14 +17,31 @@ const BookUs = () => {
   const { alertInfo, handleShowAlert, handleCloseAlert } = useAlert();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic form validation
+    if (!/^\d{10}$/.test(formData.phone)) {
+      handleShowAlert("error", "Please enter a valid 10-digit phone number.");
+      return;
+    }
+    if (formData.people <= 0) {
+      handleShowAlert("error", "Please enter a valid number of people.");
+      return;
+    }
+
+    // Format date using Moment.js
+    const formattedDate = moment(formData.date).format("YYYY-MM-DD");
+    console
+
+    const reservationData = {
+      ...formData,
+      date: formattedDate,
+    };
 
     try {
       const response = await fetch("/api/user/reservation", {
@@ -31,7 +49,7 @@ const BookUs = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(reservationData),
       });
 
       const data = await response.json();
@@ -87,10 +105,10 @@ const BookUs = () => {
           <img
             src="https://images.unsplash.com/photo-1501014882647-fa3cef30d47d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGRlc3NlcnR8ZW58MHx8MHx8fDA%3D"
             alt="Dessert"
-            className="w-full object-cover"
+            className="w-full object-cover "
           />
         </div>
-        <div className="flex-1 bg-gray-100 p-5">
+        <div className="flex-1 bg-gray-100 p-8">
           <form className="space-y-4 lg:mt-20" onSubmit={handleSubmit}>
             <div className="flex flex-col md:flex-row justify-between gap-4">
               <input
@@ -100,7 +118,7 @@ const BookUs = () => {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Name"
-                className="p-2 border text-xs border-gray-300 rounded outline-none w-full md:w-1/3"
+                className="p-3 border text-xs border-gray-300 rounded outline-none w-full md:w-1/3"
                 required
               />
               <input
@@ -110,7 +128,7 @@ const BookUs = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email"
-                className="p-2 border text-xs border-gray-300 rounded outline-none w-full md:w-1/3"
+                className="p-3 border text-xs border-gray-300 rounded outline-none w-full md:w-1/3"
                 required
               />
               <input
@@ -120,7 +138,7 @@ const BookUs = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Phone"
-                className="p-2 border text-xs border-gray-300 rounded outline-none w-full md:w-1/3"
+                className="p-3 border text-xs border-gray-300 rounded outline-none w-full md:w-1/3"
                 required
               />
             </div>
@@ -132,7 +150,7 @@ const BookUs = () => {
                 value={formData.date}
                 onChange={handleChange}
                 placeholder="Date"
-                className="p-2 border border-gray-300 rounded outline-none w-full md:w-1/3"
+                className="p-3 border border-gray-300 rounded outline-none w-full md:w-1/3"
                 required
               />
               <input
@@ -142,7 +160,7 @@ const BookUs = () => {
                 value={formData.time}
                 onChange={handleChange}
                 placeholder="Time"
-                className="p-2 border border-gray-300 rounded outline-none w-full md:w-1/3"
+                className="p-3 border border-gray-300 rounded outline-none w-full md:w-1/3"
                 required
               />
               <input
@@ -152,8 +170,9 @@ const BookUs = () => {
                 value={formData.people}
                 onChange={handleChange}
                 placeholder="Number of People"
-                className="p-2 border border-gray-300 rounded outline-none w-full md:w-1/3"
+                className="p-3 border border-gray-300 rounded outline-none w-full md:w-1/3"
                 required
+                min="1"
               />
             </div>
             <div>
@@ -163,12 +182,12 @@ const BookUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Your message"
-                className="p-2 border text-xs border-gray-300 rounded outline-none w-full h-24"
+                className="p-3 border text-xs border-gray-300 rounded outline-none w-full h-24"
               ></textarea>
             </div>
             <button
               type="submit"
-              className="w-full bg-red-500 text-white p-2 rounded-lg hover:bg-red-600"
+              className="w-full bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition duration-300"
             >
               Book Now
             </button>

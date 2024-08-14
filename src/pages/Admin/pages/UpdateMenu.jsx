@@ -124,7 +124,7 @@ const UpdateMenu = () => {
             className="flex items-center space-x-2 px-2 md:px-4 md:py-2 py-1 rounded-lg text-white font-poppins font-medium bg-red-500 hover:bg-red-400 transform duration-300 cursor-pointer"
           >
             <FaPlusCircle className="text-xs md:text-sm" />
-            <h2 className="text-xs md:text-sm">Add Item</h2>
+            <h2 className="text-xs md:text-sm font-montserrat">Add Item</h2>
           </div>
         </div>
 

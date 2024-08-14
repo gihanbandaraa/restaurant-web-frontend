@@ -152,7 +152,7 @@ const AddCategories = () => {
         />
         <div className="py-5 max-w-screen-lg mx-auto">
           <div className="flex flex-row justify-between items-center">
-            <h1 className="text-sm md:text-xl font-bold">Categories</h1>
+            <h1 className="text-sm md:text-xl font-bold font-montserrat">Categories</h1>
             <div
               onClick={toggleModal}
               className="flex items-center space-x-2 px-2 py-1 rounded-lg text-white font-poppins font-medium bg-red-500 hover:bg-red-400 transform duration-300 cursor-pointer"

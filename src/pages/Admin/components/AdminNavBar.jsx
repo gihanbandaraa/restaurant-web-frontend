@@ -70,7 +70,7 @@ const AdminNavBar = () => {
         <Link to="/admin/reservation">
           <li
             className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
-              location.pathname === "/admin/reservations"
+              location.pathname === "/admin/reservation"
                 ? "bg-red-400  text-white"
                 : "hover:bg-slate-300"
             }`}

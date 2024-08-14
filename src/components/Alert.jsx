@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
-const Alert = ({ type, message, showAlert, onClose }) => {
+const Alert = ({ type, message, showAlert, onClose,customPosition }) => {
   const [visible, setVisible] = useState(showAlert);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Alert = ({ type, message, showAlert, onClose }) => {
 
   return (
     <div
-      className={` fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-opacity  duration-300 ${
+      className={` fixed ${customPosition} top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-opacity  duration-300 ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       } ${type === "success" ? "bg-green-500" : "bg-red-500"}`}
     >
