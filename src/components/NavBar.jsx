@@ -12,6 +12,9 @@ const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems); 
+
+  const cartItemCount = cartItems.length;
 
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -54,7 +57,7 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`sm:px-8 font-montserrat  sticky top-0 z-50 transition-all duration-300 ${
+      className={`sm:px-8 font-montserrat sticky top-0 z-50 transition-all duration-300 ${
         isScrolled ? "border-b border-gray-300 bg-white shadow-md" : ""
       }`}
     >
@@ -83,7 +86,7 @@ const NavBar = () => {
           <div className="cursor-pointer flex">
             <CgShoppingCart size={32} />
             <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
-              2
+             {cartItemCount}
             </p>
           </div>
           {currentUser ? (
@@ -182,7 +185,7 @@ const NavBar = () => {
           <div className="cursor-pointer mb-4 flex py-5">
             <CgShoppingCart size={32} />
             <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
-              2
+              {cartItemCount}
             </p>
           </div>
         </div>
