@@ -62,15 +62,15 @@ const MenuSection = () => {
                 <img
                   src={item.imageUrl}
                   alt={item.title}
-                  className="w-full object-cover rounded-md mb-4"
+                  className="w-full h-48 object-cover rounded-md mb-4"
                 />
               )}
               <h3 className="font-bold font-montserrat text-lg">{item.title}</h3>
               <p className="text-gray-600 font-montserrat">{item.description}</p>
               <div className="flex flex-row items-end justify-between">
-                <p className="text-red-500 text-2xl font-semibold">Rs.{item.price}</p>
+                <p className="text-red-500 text-xl font-semibold">Rs.{item.price}</p>
                 {item.offers && (
-                  <span className="absolute top-10 left-8 bg-green-500 text-white text-sm px-2 py-1 rounded">
+                  <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
                     {item.offers}
                   </span>
                 )}

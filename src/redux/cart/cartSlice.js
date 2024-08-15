@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cartItems: [], // Use cartItems as the state key
+  cartItems: [],
 };
 
 const cartSlice = createSlice({
@@ -22,12 +22,46 @@ const cartSlice = createSlice({
       const itemId = action.payload;
       state.cartItems = state.cartItems.filter((item) => item._id !== itemId);
     },
+    reduceItemQuantity: (state, action) => {
+      const itemId = action.payload;
+      const existingItem = state.cartItems.find((i) => i._id === itemId);
+
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          existingItem.quantity -= 1;
+        } else {
+          // Remove item if quantity is 0 or less
+          state.cartItems = state.cartItems.filter(
+            (item) => item._id !== itemId
+          );
+        }
+      }
+    },
     clearCart: (state) => {
       state.cartItems = [];
     },
   },
 });
 
-export const { addItemToCart, removeItemFromCart, clearCart } = cartSlice.actions;
+// Selectors
+export const selectCartItems = (state) => state.cart.cartItems;
+
+export const selectCartItemTotal = (state, itemId) => {
+  const item = state.cart.cartItems.find((i) => i._id === itemId);
+  return item ? item.quantity * item.price : 0;
+};
+
+export const selectCartTotal = (state) =>
+  state.cart.cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+
+export const {
+  addItemToCart,
+  removeItemFromCart,
+  reduceItemQuantity,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
