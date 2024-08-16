@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import useAlert from "../hooks/useAlert";
 import { useDispatch } from "react-redux"; // Import useDispatch
 import { addItemToCart } from "../redux/cart/cartSlice";
+import { FaSearch } from "react-icons/fa";
 
 const Menu = () => {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [menuItems, setMenuItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const dispatch = useDispatch();
 
@@ -65,6 +67,10 @@ const Menu = () => {
     fetchMenuItems();
   }, [selectedCategory]);
 
+  const filteredMenuItems = menuItems.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <section className="min-h-screen max-w-screen-lg mx-auto">
       <h2 className="text-2xl text-gray-900 font-montserrat md:text-3xl font-extrabold text-center my-4">
@@ -73,6 +79,19 @@ const Menu = () => {
       <p className=" md:text-lg font-montserrat font-medium text-center text-gray-700 mb-10">
         Discover the finest flavors and delightful dishes crafted just for you.
       </p>
+
+      <div className="flex justify-center mb-6">
+        <div className="relative ">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search for dishes..."
+            className="px-4 py-2 w-full md:w-80 border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+          />
+          <FaSearch className="absolute text-red-500 inset-y-0 right-3 top-1/2 transform -translate-y-1/2 h-5 w-5" />
+        </div>
+      </div>
 
       <div className="flex items-center md:justify-center hide-scrollbar max-w-full px-4 mx-auto overflow-x-auto space-x-2 mb-6">
         <button
@@ -105,11 +124,11 @@ const Menu = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 mx-5 lg:grid-cols-3 gap-6 mb-10">
         {loading ? (
           <div className="line-loader"></div>
-        ) : menuItems.length > 0 ? (
-          menuItems.map((item) => (
+        ) : filteredMenuItems.length > 0 ? (
+          filteredMenuItems.map((item) => (
             <div
               key={item._id}
-              className="border relative border-gray-200 rounded-lg p-4 shadow-sm"
+              className="border relative border-gray-200 rounded-lg p-4 shadow-sm hover:scale-105 cursor-pointer transform duration-300"
             >
               {item.imageUrl && (
                 <img

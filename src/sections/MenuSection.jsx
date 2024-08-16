@@ -52,11 +52,11 @@ const MenuSection = () => {
         </p>
 
         {/* Menu Items */}
-        <div className="grid grid-cols-1 px-8 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto">
+        <div className="grid grid-cols-1 px-8 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto ">
           {menu.slice(0, visibleItems).map((item) => (
             <div
               key={item._id}
-              className="border relative border-gray-200 rounded-lg p-4 shadow-sm"
+              className="border relative border-gray-200 rounded-lg p-4 shadow-sm hover:scale-105 cursor-pointer transform duration-300"
             >
               {item.imageUrl && (
                 <img
