@@ -128,7 +128,7 @@ const Menu = () => {
           filteredMenuItems.map((item) => (
             <div
               key={item._id}
-              className="border relative border-gray-200 rounded-lg p-4 shadow-sm"
+              className="border relative border-gray-200 rounded-lg p-4 shadow-sm hover:scale-105 cursor-pointer transform duration-300"
             >
               {item.imageUrl && (
                 <img

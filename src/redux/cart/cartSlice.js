@@ -15,7 +15,9 @@ const cartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity += 1;
-        toast.success(`${existingItem.quantity}  ${action.payload.title} added to cart!`);
+        toast.success(
+          `${existingItem.quantity}  ${action.payload.title} added to cart!`
+        );
       } else {
         state.cartItems.push({ ...item, quantity: 1 });
         toast.success(`${action.payload.title} added to cart!`);
@@ -33,7 +35,6 @@ const cartSlice = createSlice({
         if (existingItem.quantity > 1) {
           existingItem.quantity -= 1;
         } else {
-          // Remove item if quantity is 0 or less
           state.cartItems = state.cartItems.filter(
             (item) => item._id !== itemId
           );
