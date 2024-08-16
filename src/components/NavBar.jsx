@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { navItems } from "../data/data";
-import { CgShoppingCart } from "react-icons/cg";
+import { CgSearch, CgShoppingCart } from "react-icons/cg";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice";
 import { clearCart } from "../redux/cart/cartSlice";
 import CartModal from "./CartModal";
+import GlobalSearchModal from "./GlobalSearchModal";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isCartModalOpen, setIsCartModalOpen] = useState(false); // Manage CartModal state
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -29,6 +31,9 @@ const NavBar = () => {
   };
   const handleCartModalToggle = () => {
     setIsCartModalOpen(!isCartModalOpen);
+  };
+  const handleSearchModalToggle = () => {
+    setIsSearchModalOpen(!isSearchModalOpen);
   };
 
   useEffect(() => {
@@ -93,6 +98,12 @@ const NavBar = () => {
         <div className="hidden lg:flex gap-4 items-center">
           <div
             className="relative cursor-pointer flex"
+            onClick={handleSearchModalToggle}
+          >
+            <CgSearch size={32} />
+          </div>
+          <div
+            className="relative cursor-pointer flex"
             onClick={handleCartModalToggle} // Toggle CartModal on click
           >
             <CgShoppingCart size={32} />
@@ -137,7 +148,13 @@ const NavBar = () => {
         <div className="flex gap-2 items-center justify-center">
           {currentUser ? (
             <div className="relative">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center lg:hidden gap-2">
+                <div
+                  className="relative cursor-pointer flex"
+                  onClick={handleSearchModalToggle}
+                >
+                  <CgSearch size={32} />
+                </div>
                 <div
                   className="relative lg:hidden cursor-pointer flex"
                   onClick={handleCartModalToggle}
@@ -205,6 +222,10 @@ const NavBar = () => {
         </ul>
       </div>
       <CartModal isOpen={isCartModalOpen} onClose={handleCartModalToggle} />
+      <GlobalSearchModal
+        isOpen={isSearchModalOpen}
+        onClose={handleSearchModalToggle}
+      />
     </nav>
   );
 };
