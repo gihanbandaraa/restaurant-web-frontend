@@ -5,6 +5,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice";
+import { clearCart } from "../redux/cart/cartSlice";
 import CartModal from "./CartModal";
 
 const NavBar = () => {
@@ -55,6 +56,7 @@ const NavBar = () => {
         console.error(data.message);
       } else {
         dispatch(signOutSuccess());
+        dispatch(clearCart());
       }
     } catch (error) {
       console.log(error.message);
