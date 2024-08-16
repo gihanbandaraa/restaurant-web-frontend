@@ -5,14 +5,17 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice";
+import CartModal from "./CartModal";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false); // Manage CartModal state
+
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.cartItems); 
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   const cartItemCount = cartItems.length;
 
@@ -22,6 +25,9 @@ const NavBar = () => {
 
   const handleProfileMenuToggle = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+  const handleCartModalToggle = () => {
+    setIsCartModalOpen(!isCartModalOpen);
   };
 
   useEffect(() => {
@@ -83,10 +89,13 @@ const NavBar = () => {
         </div>
 
         <div className="hidden lg:flex gap-4 items-center">
-          <div className="cursor-pointer flex">
+          <div
+            className="relative cursor-pointer flex"
+            onClick={handleCartModalToggle} // Toggle CartModal on click
+          >
             <CgShoppingCart size={32} />
-            <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
-             {cartItemCount}
+            <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500 absolute top-0 right-0">
+              {cartItemCount}
             </p>
           </div>
           {currentUser ? (
@@ -126,12 +135,23 @@ const NavBar = () => {
         <div className="flex gap-2 items-center justify-center">
           {currentUser ? (
             <div className="relative">
-              <img
-                src={currentUser.profilePicture}
-                className="rounded-full block lg:hidden"
-                width={38}
-                onClick={handleProfileMenuToggle}
-              />
+              <div className="flex items-center gap-2">
+                <div
+                  className="relative lg:hidden cursor-pointer flex"
+                  onClick={handleCartModalToggle}
+                >
+                  <CgShoppingCart size={32} />
+                  <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500 absolute top-0 right-0">
+                    {cartItemCount}
+                  </p>
+                </div>
+                <img
+                  src={currentUser.profilePicture}
+                  className="rounded-full block lg:hidden"
+                  width={38}
+                  onClick={handleProfileMenuToggle}
+                />
+              </div>
               {isProfileMenuOpen && (
                 <div className="absolute lg:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <Link
@@ -181,15 +201,8 @@ const NavBar = () => {
             </li>
           ))}
         </ul>
-        <div className="flex flex-col items-center mt-4">
-          <div className="cursor-pointer mb-4 flex py-5">
-            <CgShoppingCart size={32} />
-            <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500">
-              {cartItemCount}
-            </p>
-          </div>
-        </div>
       </div>
+      <CartModal isOpen={isCartModalOpen} onClose={handleCartModalToggle} />
     </nav>
   );
 };
