@@ -11,11 +11,12 @@ import {
   clearCart,
 } from "../redux/cart/cartSlice";
 
+import ReactLoading from "react-loading";
+
 import PaymentDetails from "../components/PaymentDetails";
 
-// Helper function to generate a unique 7-character order ID
 const generateOrderId = () => {
-  return "order-" + Math.random().toString(36).substring(2, 9).toUpperCase();
+  return "#" + Math.random().toString(36).substring(2, 9).toUpperCase();
 };
 
 const Checkout = () => {
@@ -25,7 +26,7 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const { currentUser } = useSelector((state) => state.user);
-
+  const [loading, setLoading] = useState(false);
   const [shippingDetails, setShippingDetails] = useState({
     name: "",
     phone: "",
@@ -80,7 +81,10 @@ const Checkout = () => {
       status: "Pending",
       totalPrice: cartTotal,
       paymentStatus: paymentMethod === "card" ? "Paid" : "COD",
+      branch: shippingDetails.branch,
     };
+
+    setLoading(true);
 
     try {
       // Send order data to the backend
@@ -100,6 +104,7 @@ const Checkout = () => {
     } catch (error) {
       toast.error("An error occurred. Please try again.");
     } finally {
+      setLoading(false);
       setShowPayment(false); // Close the modal after processing
     }
   };
@@ -272,10 +277,10 @@ const Checkout = () => {
               </div>
             </div>
             <button
-              onClick={handleProceedClick} // Use the new handler
+              onClick={handleProceedClick}
               className="bg-red-500 text-white px-4 py-2 rounded-md w-full"
             >
-              Proceed to Payment
+              {loading ? "Processing..." : "Proceed to Payment"}
             </button>
           </div>
         </div>
@@ -291,6 +296,16 @@ const Checkout = () => {
             </button>
             <PaymentDetails onPaymentSuccess={handleProceedToPayment} />
           </div>
+        </div>
+      )}
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <ReactLoading
+            type={"spin"}
+            color={"#ffffff"}
+            height={50}
+            width={50}
+          />
         </div>
       )}
     </div>

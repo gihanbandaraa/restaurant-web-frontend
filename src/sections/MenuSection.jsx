@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Import useDispatch
-import { addItemToCart } from "../redux/cart/cartSlice"; // Import the addItemToCart action
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/cart/cartSlice";
 import useAlert from "../hooks/useAlert.js";
 
 const MenuSection = () => {
   const [menu, setMenu] = useState([]);
   const [visibleItems, setVisibleItems] = useState(6);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch(); // Initialize useDispatch hook
+  const dispatch = useDispatch();
   const { handleShowAlert } = useAlert();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const MenuSection = () => {
     };
 
     fetchMenuData();
-  }, [handleShowAlert]);
+  }, []);
 
   const calculateDiscountedPrice = (item) => {
     if (item.offers) {
@@ -42,7 +42,6 @@ const MenuSection = () => {
     const discountedPrice = calculateDiscountedPrice(item);
     const newItem = { ...item, price: discountedPrice };
     dispatch(addItemToCart(newItem));
-    handleShowAlert("success", `${item.title} added to cart`);
   };
   
   return (
@@ -60,7 +59,7 @@ const MenuSection = () => {
           everyone.
         </p>
 
-        {/* Menu Items */}
+  
         <div className="grid grid-cols-1 px-8 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto ">
           {menu.slice(0, visibleItems).map((item) => (
             <div
@@ -86,7 +85,7 @@ const MenuSection = () => {
                 </p>
                 {item.offers && (
                   <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
-                    {item.offers}
+                    {item.offers}% off
                   </span>
                 )}
                 <button
