@@ -40,10 +40,19 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
     );
   };
 
-  const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item));
+  const calculateDiscountedPrice = (item) => {
+    if (item.offers) {
+      return item.price - (item.price * item.offers) / 100;
+    }
+    return item.price;
   };
 
+  const handleAddToCart = (item) => {
+    const discountedPrice = calculateDiscountedPrice(item);
+    const newItem = { ...item, price: discountedPrice };
+    dispatch(addItemToCart(newItem));
+    handleShowAlert("success", `${item.title} added to cart`);
+  };
   if (!isOpen) return null;
 
   return (
@@ -100,7 +109,8 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
                       {item.title}
                     </h3>
                     <p className="text-red-500 font-bold font-sm sm:font-base">
-                      Rs.{item.price}
+                      Rs.{item.price}{" "}
+                      {item.offers && <span> ({item.offers}% off)</span>}
                     </p>
                   </div>
                 </div>
@@ -108,7 +118,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
                   onClick={() => handleAddToCart(item)}
                   className="bg-red-500 text-white text-xs sm:text-base px-4 font-semibold py-2 rounded-md hover:bg-red-400 transition duration-300"
                 >
-                  Add 
+                  Add
                 </button>
               </div>
             ))

@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Checkout from "./pages/Checkout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import OrderConfirmation from "./components/OrderConfirmation";
 
 import NotFound from "./components/NotFound"; // Import the NotFound component
 
@@ -28,8 +31,10 @@ const App = () => {
   const routes = [
     "/",
     "/menu",
+    "/menu/checkout",
     "/sign-in",
     "/sign-up",
+    "/order-confirmation",
     "/admin",
     "/admin/update-menu",
     "/admin/add-categories",
@@ -61,6 +66,16 @@ const App = () => {
             <Route path="/menu" element={<Menu />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route
+              path="/menu/checkout"
+              element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              }
+            />
+             <Route path="/order-confirmation" element={<OrderConfirmation />} />
+            
             <Route path="*" element={<NotFound />} />
           </>
         )}

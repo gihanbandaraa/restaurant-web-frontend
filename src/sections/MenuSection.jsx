@@ -31,11 +31,20 @@ const MenuSection = () => {
     fetchMenuData();
   }, [handleShowAlert]);
 
-  const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item)); // Dispatch the addItemToCart action
-    handleShowAlert("success", `${item.title} added to cart`);
+  const calculateDiscountedPrice = (item) => {
+    if (item.offers) {
+      return item.price - (item.price * item.offers) / 100;
+    }
+    return item.price;
   };
 
+  const handleAddToCart = (item) => {
+    const discountedPrice = calculateDiscountedPrice(item);
+    const newItem = { ...item, price: discountedPrice };
+    dispatch(addItemToCart(newItem));
+    handleShowAlert("success", `${item.title} added to cart`);
+  };
+  
   return (
     <section className="py-10">
       <div className="flex items-center justify-center flex-col gap-4">
@@ -65,10 +74,16 @@ const MenuSection = () => {
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
               )}
-              <h3 className="font-bold font-montserrat text-lg">{item.title}</h3>
-              <p className="text-gray-600 font-montserrat">{item.description}</p>
+              <h3 className="font-bold font-montserrat text-lg">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 font-montserrat">
+                {item.description}
+              </p>
               <div className="flex flex-row items-end justify-between">
-                <p className="text-red-500 text-xl font-semibold">Rs.{item.price}</p>
+                <p className="text-red-500 text-xl font-semibold">
+                  Rs.{item.price}
+                </p>
                 {item.offers && (
                   <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
                     {item.offers}

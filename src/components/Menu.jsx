@@ -54,8 +54,17 @@ const Menu = () => {
     }
   };
 
+  const calculateDiscountedPrice = (item) => {
+    if (item.offers) {
+      return item.price - (item.price * item.offers) / 100;
+    }
+    return item.price;
+  };
+
   const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item)); // Dispatch the addItemToCart action
+    const discountedPrice = calculateDiscountedPrice(item);
+    const newItem = { ...item, price: discountedPrice };
+    dispatch(addItemToCart(newItem));
     handleShowAlert("success", `${item.title} added to cart`);
   };
 
@@ -149,7 +158,7 @@ const Menu = () => {
                 </p>
                 {item.offers && (
                   <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
-                    {item.offers}
+                    {item.offers}% off
                   </span>
                 )}
                 <button

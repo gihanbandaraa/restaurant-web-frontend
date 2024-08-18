@@ -21,7 +21,7 @@ const MenuItemCard = ({ item, handleEdit, handleDelete }) => {
           </h2>
           {item.offers && (
             <span className="bg-green-500 text-white w-fit text-sm px-2 py-1 rounded">
-              {item.offers}
+              {item.offers}% Off
             </span>
           )}
         </div>
