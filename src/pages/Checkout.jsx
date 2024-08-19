@@ -34,6 +34,7 @@ const Checkout = () => {
     shippingAddress: "",
     city: "",
     branch: "",
+    specialNotes: "",
   });
 
   const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -53,7 +54,6 @@ const Checkout = () => {
   };
 
   const handleProceedToPayment = async () => {
-    // Validate shipping details
     if (
       !shippingDetails.name ||
       !shippingDetails.phone ||
@@ -67,7 +67,7 @@ const Checkout = () => {
 
     // Generate order data
     const orderData = {
-      user: currentUser._id, // Add user ID if available
+      user: currentUser._id,
       orderId: generateOrderId(),
       name: shippingDetails.name,
       email: shippingDetails.email,
@@ -76,6 +76,7 @@ const Checkout = () => {
         quantity: item.quantity,
       })),
       shippingAddress: shippingDetails.shippingAddress,
+      specialNotes: shippingDetails.specialNotes,
       city: shippingDetails.city,
       phone: shippingDetails.phone,
       status: "Pending",
@@ -87,7 +88,6 @@ const Checkout = () => {
     setLoading(true);
 
     try {
-      // Send order data to the backend
       await fetch("/api/admin/add-order", {
         method: "POST",
         headers: {
@@ -105,15 +105,15 @@ const Checkout = () => {
       toast.error("An error occurred. Please try again.");
     } finally {
       setLoading(false);
-      setShowPayment(false); // Close the modal after processing
+      setShowPayment(false);
     }
   };
 
   const handleProceedClick = () => {
     if (paymentMethod === "card") {
-      setShowPayment(true); // Show modal if payment method is card
+      setShowPayment(true);
     } else {
-      handleProceedToPayment(); // Directly proceed if payment method is COD
+      handleProceedToPayment();
     }
   };
 
@@ -121,7 +121,7 @@ const Checkout = () => {
     <div className="max-w-screen-lg mx-auto p-4">
       <h2 className="text-2xl md:text-3xl font-bold mb-6">Checkout</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="border-2 p-10 shadow-2xl rounded-lg">
+        <div className=" border-r-2 p-10  ">
           <h3 className="text-xl font-medium mb-4">Shipping Details</h3>
           <div className="mb-4">
             <label className="block mb-2">Name</label>
@@ -135,17 +135,6 @@ const Checkout = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-2">Contact Number</label>
-            <input
-              type="number"
-              name="phone"
-              value={shippingDetails.phone}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border rounded-lg"
-              placeholder="Enter your contact number"
-            />
-          </div>
-          <div className="mb-4">
             <label className="block mb-2">Email</label>
             <input
               type="email"
@@ -156,6 +145,18 @@ const Checkout = () => {
               placeholder="Enter your email address"
             />
           </div>
+          <div className="mb-4">
+            <label className="block mb-2">Contact Number</label>
+            <input
+              type="number"
+              name="phone"
+              value={shippingDetails.phone}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter your contact number"
+            />
+          </div>
+
           <div className="mb-4">
             <label className="block mb-2">Address</label>
             <input
@@ -193,6 +194,18 @@ const Checkout = () => {
               <option value="Galle">Galle</option>
               <option value="Kandy">Kandy</option>
             </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2">Special Notes</label>
+            <textarea
+              type="text"
+              name="specialNotes"
+              value={shippingDetails.specialNotes}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border rounded-lg"
+              placeholder="Enter if there any special notes"
+            />
           </div>
         </div>
 
