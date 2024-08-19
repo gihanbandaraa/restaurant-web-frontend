@@ -179,8 +179,11 @@ const UpdateGallery = () => {
         onClose={handleCloseAlert}
       />
       <div className="max-w-screen-xl mx-auto py-5 ">
-        <h1 className="text-lg font-bold mb-6 font-montserrat">
-          Update Gallery
+        <nav className="text-sm font-medium text-gray-500 mb-4">
+          <span className="text-red-600">Dashboard</span> / Manage Gallery
+        </nav>
+        <h1 className="text-2xl font-bold mb-6 font-montserrat text-red-500">
+          Manage Gallery
         </h1>
 
         <div
@@ -255,7 +258,6 @@ const UpdateGallery = () => {
           )}
         </div>
 
-        {/* Confirmation Delete Modal */}
         <div
           className={`fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 transition-opacity duration-300 ${
             confirmDeleteModalOpen

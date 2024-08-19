@@ -113,8 +113,11 @@ const ManageReservation = () => {
   return (
     <section className="fixed-container p-4">
       <div className="max-w-screen-xl mx-auto py-5">
-        <h1 className="text-lg font-bold mb-6 font-montserrat">
-          Manage Reservations
+        <nav className="text-sm font-medium text-gray-500 mb-4">
+          <span className="text-red-600">Dashboard</span> / Manage Reservation
+        </nav>
+        <h1 className="text-2xl font-bold mb-6 font-montserrat text-red-500">
+          Manage Reservation
         </h1>
 
         <Alert
