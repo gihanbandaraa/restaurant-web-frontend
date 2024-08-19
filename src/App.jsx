@@ -8,7 +8,7 @@ import Checkout from "./pages/Checkout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OrderConfirmation from "./components/OrderConfirmation";
 
-import NotFound from "./components/NotFound"; // Import the NotFound component
+import NotFound from "./components/NotFound"; 
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -22,6 +22,7 @@ import AddCategories from "./pages/Admin/pages/AddCategories";
 import UpdateGallery from "./pages/Admin/pages/UpdateGallery";
 import ManageReservation from "./pages/Admin/pages/ManageReservation";
 import ManageOffers from "./pages/Admin/pages/ManageOffers";
+import ManageOrders from "./pages/Admin/pages/ManageOrders";
 
 const App = () => {
   const location = useLocation();
@@ -41,6 +42,7 @@ const App = () => {
     "/admin/gallery",
     "/admin/reservation",
     "/admin/offers",
+    "/admin/orders",
   ];
 
   const isDefinedRoute = routes.includes(location.pathname);
@@ -58,6 +60,7 @@ const App = () => {
             <Route path="gallery" element={<UpdateGallery />} />
             <Route path="reservation" element={<ManageReservation />} />
             <Route path="offers" element={<ManageOffers />} />
+            <Route path="orders" element={<ManageOrders />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (
