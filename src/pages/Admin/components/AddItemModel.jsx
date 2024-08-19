@@ -241,7 +241,8 @@ const AddItemModal = ({ isOpen, onClose, categories, selectedCategory }) => {
               </label>
               <input
                 id="offers"
-                placeholder="Buy 1 Get 1 Free / 10% off"
+                type="number"
+                placeholder="10 % Off / 5% off"
                 value={formData.offers}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-md p-2 resize-none focus:outline-none focus:ring-2 focus:ring-red-500"

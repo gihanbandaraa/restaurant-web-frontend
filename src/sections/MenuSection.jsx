@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux"; // Import useDispatch
-import { addItemToCart } from "../redux/cart/cartSlice"; // Import the addItemToCart action
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/cart/cartSlice";
 import useAlert from "../hooks/useAlert.js";
 
 const MenuSection = () => {
   const [menu, setMenu] = useState([]);
   const [visibleItems, setVisibleItems] = useState(6);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch(); // Initialize useDispatch hook
+  const dispatch = useDispatch();
   const { handleShowAlert } = useAlert();
 
   useEffect(() => {
@@ -29,13 +29,21 @@ const MenuSection = () => {
     };
 
     fetchMenuData();
-  }, [handleShowAlert]);
+  }, []);
 
-  const handleAddToCart = (item) => {
-    dispatch(addItemToCart(item)); // Dispatch the addItemToCart action
-    handleShowAlert("success", `${item.title} added to cart`);
+  const calculateDiscountedPrice = (item) => {
+    if (item.offers) {
+      return item.price - (item.price * item.offers) / 100;
+    }
+    return item.price;
   };
 
+  const handleAddToCart = (item) => {
+    const discountedPrice = calculateDiscountedPrice(item);
+    const newItem = { ...item, price: discountedPrice };
+    dispatch(addItemToCart(newItem));
+  };
+  
   return (
     <section className="py-10">
       <div className="flex items-center justify-center flex-col gap-4">
@@ -51,7 +59,7 @@ const MenuSection = () => {
           everyone.
         </p>
 
-        {/* Menu Items */}
+  
         <div className="grid grid-cols-1 px-8 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto ">
           {menu.slice(0, visibleItems).map((item) => (
             <div
@@ -65,13 +73,19 @@ const MenuSection = () => {
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
               )}
-              <h3 className="font-bold font-montserrat text-lg">{item.title}</h3>
-              <p className="text-gray-600 font-montserrat">{item.description}</p>
+              <h3 className="font-bold font-montserrat text-lg">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 font-montserrat">
+                {item.description}
+              </p>
               <div className="flex flex-row items-end justify-between">
-                <p className="text-red-500 text-xl font-semibold">Rs.{item.price}</p>
+                <p className="text-red-500 text-xl font-semibold">
+                  Rs.{item.price}
+                </p>
                 {item.offers && (
                   <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
-                    {item.offers}
+                    {item.offers}% off
                   </span>
                 )}
                 <button

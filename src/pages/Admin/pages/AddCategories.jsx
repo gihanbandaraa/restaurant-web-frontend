@@ -134,7 +134,7 @@ const AddCategories = () => {
         return;
       }
       handleShowAlert("success", "Category deleted successfully!");
-      fetchCategories(); 
+      fetchCategories();
     } catch (error) {
       handleShowAlert("error", "Something went wrong!");
     }
@@ -152,7 +152,15 @@ const AddCategories = () => {
         />
         <div className="py-5 max-w-screen-xl mx-auto">
           <div className="flex flex-row justify-between items-center">
-            <h1 className="text-sm md:text-xl font-bold font-montserrat">Categories</h1>
+            <div>
+              <nav className="text-sm font-medium text-gray-500 mb-4">
+                <span className="text-red-600">Dashboard</span> / Manage
+                Categories
+              </nav>
+              <h1 className="text-2xl font-bold mb-6 font-montserrat text-red-600">
+                Manage Categories
+              </h1>
+            </div>
             <div
               onClick={toggleModal}
               className="flex items-center space-x-2 px-2 py-1 rounded-lg text-white font-poppins font-medium bg-red-500 hover:bg-red-400 transform duration-300 cursor-pointer"

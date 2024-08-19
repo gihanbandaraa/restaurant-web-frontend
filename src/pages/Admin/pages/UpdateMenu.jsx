@@ -118,7 +118,14 @@ const UpdateMenu = () => {
 
       <div className="py-5 max-w-screen-xl mx-auto">
         <div className="flex flex-row justify-between items-center mb-4">
-          <h1 className="text-sm md:text-xl font-bold">Menu Items</h1>
+          <div>
+            <nav className="text-sm font-medium text-gray-500 mb-4">
+              <span className="text-red-600">Dashboard</span> / Manage menu
+            </nav>
+            <h1 className="text-2xl font-bold mb-6 font-montserrat text-red-500">
+              Manage Menu
+            </h1>
+          </div>
           <div
             onClick={() => setIsAddModalOpen(true)}
             className="flex items-center space-x-2 px-2 md:px-4 md:py-2 py-1 rounded-lg text-white font-poppins font-medium bg-red-500 hover:bg-red-400 transform duration-300 cursor-pointer"

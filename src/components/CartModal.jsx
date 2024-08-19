@@ -8,16 +8,23 @@ import {
   selectCartTotal,
 } from "../redux/cart/cartSlice";
 import { MdDelete, MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const CartModal = ({ isOpen, onClose }) => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
+  };
+
+  const handleCheckout = () => {
+    onClose();
+    navigate("/menu/checkout");
   };
 
   const handleCloseClick = () => {
@@ -70,6 +77,9 @@ const CartModal = ({ isOpen, onClose }) => {
                       </p>
                       <p className="text-sm font-semibold text-red-500">
                         Rs.{item.price * item.quantity}
+                        {item.offers && (
+                          <span> ({item.offers}% off)</span>
+                        )}
                       </p>
                     </div>
                   </div>
@@ -110,13 +120,18 @@ const CartModal = ({ isOpen, onClose }) => {
                 >
                   Continue Shopping
                 </button>
-                <button className="px-4 py-2 font-medium text-xs md:text-base bg-red-500 text-white rounded-lg">
+                <button
+                  onClick={handleCheckout}
+                  className="px-4 py-2 font-medium text-xs md:text-base bg-red-500 text-white rounded-lg"
+                >
                   Proceed to Checkout
                 </button>
               </div>
             </div>
           ) : (
-            <p className="font-montserrat font-medium mt-6">Your cart is empty. Add items to get started!</p>
+            <p className="font-montserrat font-medium mt-6">
+              Your cart is empty. Add items to get started!
+            </p>
           )}
         </div>
       </div>
