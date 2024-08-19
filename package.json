@@ -42,6 +42,7 @@
     "redux-persist": "^6.0.0",
     "restaurant-web-frontend": "file:",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.5",
     "swiper": "^11.1.9"
   },
   "devDependencies": {
