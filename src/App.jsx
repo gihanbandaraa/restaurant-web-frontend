@@ -8,7 +8,7 @@ import Checkout from "./pages/Checkout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OrderConfirmation from "./components/OrderConfirmation";
 
-import NotFound from "./components/NotFound"; 
+import NotFound from "./components/NotFound";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -23,10 +23,16 @@ import UpdateGallery from "./pages/Admin/pages/UpdateGallery";
 import ManageReservation from "./pages/Admin/pages/ManageReservation";
 import ManageOffers from "./pages/Admin/pages/ManageOffers";
 import ManageOrders from "./pages/Admin/pages/ManageOrders";
+import ManageQueries from "./pages/Admin/pages/ManageQueries";
+
+import StaffRoute from "./components/StaffRoute";  // Use the correct StaffRoute here
+import StaffNavBar from "./pages/Staff/components/StaffNavBar";
+import StaffDashboard from "./pages/Staff/StaffDashboard";
 
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isStaffRoute = location.pathname.startsWith("/staff");
 
   // List of all defined routes
   const routes = [
@@ -43,13 +49,24 @@ const App = () => {
     "/admin/reservation",
     "/admin/offers",
     "/admin/orders",
+    "/admin/queries",
+    "/staff",
+    "/staff/reservation",
+    "/staff/orders",
+    "/staff/queries",
   ];
 
   const isDefinedRoute = routes.includes(location.pathname);
 
   return (
     <>
-      {isDefinedRoute && (isAdminRoute ? <AdminNavBar /> : <NavBar />)}
+      {isDefinedRoute && (
+        <>
+          {isAdminRoute && <AdminNavBar />}
+          {isStaffRoute  && <StaffNavBar />}
+          {!isAdminRoute && !isStaffRoute && <NavBar />}
+        </>
+      )}
 
       <Routes>
         {isAdminRoute ? (
@@ -61,6 +78,15 @@ const App = () => {
             <Route path="reservation" element={<ManageReservation />} />
             <Route path="offers" element={<ManageOffers />} />
             <Route path="orders" element={<ManageOrders />} />
+            <Route path="queries" element={<ManageQueries />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        ) : isStaffRoute ? (
+          <Route path="/staff/*" element={<StaffRoute />}>
+            <Route path="" element={<StaffDashboard />} />
+            <Route path="reservation" element={<ManageReservation />} />
+            <Route path="orders" element={<ManageOrders />} />
+            <Route path="queries" element={<ManageQueries />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (
@@ -77,13 +103,13 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-             <Route path="/order-confirmation" element={<OrderConfirmation />} />
-            
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
+
             <Route path="*" element={<NotFound />} />
           </>
         )}
       </Routes>
-      {isDefinedRoute && !isAdminRoute && <Footer />}
+      {isDefinedRoute && !isAdminRoute && !isStaffRoute && <Footer />}
     </>
   );
 };

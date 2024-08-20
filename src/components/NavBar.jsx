@@ -190,7 +190,7 @@ const NavBar = () => {
             </div>
           ) : (
             <Link to={"/sign-in"}>
-              <div className="bg-slate-800 py-2 px-4 text-xs  sm:hidden  rounded-full font-semibold text-white">
+              <div className="bg-slate-800 py-2 px-4 text-xs  lg:hidden  rounded-full font-semibold text-white">
                 <button>Sign In</button>
               </div>
             </Link>
