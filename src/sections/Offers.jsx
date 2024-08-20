@@ -65,7 +65,7 @@ const Offers = () => {
       <div className="max-w-screen-lg w-full">
         <Slider {...settings} className="w-full">
           {offers.map((offer) => (
-            <div key={offer.id} className="p-2 box-border">
+            <div key={offer._id} className="p-2 box-border">
               <div className="bg-gray-100 p-5 m-2 sm:m-6 rounded-lg shadow-md flex flex-col items-center hover:scale-105 transform transition-transform duration-200">
                 <img
                   src={offer.imageUrl}
