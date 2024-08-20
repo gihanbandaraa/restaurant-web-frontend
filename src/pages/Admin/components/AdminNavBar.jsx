@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BiCategory, BiSolidOffer } from "react-icons/bi";
-import { FaHome, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaHome, FaQuestionCircle, FaSearch, FaShoppingCart } from "react-icons/fa";
 import { GrGallery } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
 import { MdRestaurantMenu } from "react-icons/md";
@@ -120,6 +120,20 @@ const AdminNavBar = () => {
             <div className="flex items-center gap-3">
               <GrGallery />
               <p className="font-montserrat font-semibold">Gallery</p>
+            </div>
+          </li>
+        </Link>
+        <Link to="/admin/queries">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/queries"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <FaQuestionCircle />
+              <p className="font-montserrat font-semibold">Queries</p>
             </div>
           </li>
         </Link>

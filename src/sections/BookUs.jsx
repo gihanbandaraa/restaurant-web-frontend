@@ -32,7 +32,6 @@ const BookUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic form validation
     if (!/^\d{10}$/.test(formData.phone)) {
       handleShowAlert("error", "Please enter a valid 10-digit phone number.");
       return;
@@ -42,7 +41,6 @@ const BookUs = () => {
       return;
     }
 
-    // Format date using Moment.js
     const formattedDate = moment(formData.date).format("YYYY-MM-DD");
 
     const reservationData = {
@@ -74,7 +72,7 @@ const BookUs = () => {
           time: "",
           people: "",
           message: "",
-          branch: "", // Reset branch field
+          branch: "",
         });
       } else {
         handleShowAlert(
