@@ -25,7 +25,7 @@ ChartJS.register(
   ArcElement
 );
 
-import { formatDistanceToNow } from "date-fns"; 
+import { formatDistanceToNow } from "date-fns";
 
 const AdminDashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -33,6 +33,7 @@ const AdminDashboard = () => {
   const [salesPerformance, setSalesPerformance] = useState([]);
   const [recentOrders, setRecentOrders] = useState([]);
   const [userActivity, setUserActivity] = useState(null);
+  const [salesFilter, setSalesFilter] = useState("last7Days");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,10 +61,11 @@ const AdminDashboard = () => {
         console.error("Error fetching top menu items", error);
       }
     };
-
-    const fetchSalesPerformance = async () => {
+    const fetchSalesPerformance = async (filter) => {
       try {
-        const response = await fetch("/api/admin/sales-performance");
+        const response = await fetch(
+          `/api/admin/sales-performance?filter=${filter}`
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -102,12 +104,29 @@ const AdminDashboard = () => {
 
     fetchData();
     fetchTopMenuItems();
-    fetchSalesPerformance();
+    fetchSalesPerformance(salesFilter);
     fetchRecentOrders();
     fetchUserActivity();
-  }, []);
+  }, [salesFilter]);
 
-  if (!dashboardData) return <div>Loading...</div>;
+  const handleFilterChange = (event) => {
+    const selectedFilter = event.target.value;
+    setSalesFilter(selectedFilter);
+  };
+
+  if (
+    !dashboardData ||
+    !topMenuItems.length ||
+    !salesPerformance.length ||
+    !recentOrders.length ||
+    !userActivity
+  ) {
+    return (
+      <section className="fixed-container p-4 space-y-8">
+        <div className="line-loader"></div>
+      </section>
+    );
+  }
 
   const {
     revenueByDay,
@@ -156,20 +175,31 @@ const AdminDashboard = () => {
 
   return (
     <section className="fixed-container p-4 space-y-8">
-      <h2 className="text-2xl font-bold text-red-600">Admin Dashboard</h2>
+      <nav className="text-sm font-medium text-gray-500 mb-4">
+          <span className="text-red-600">Dashboard</span> / Dashboard
+        </nav>
+        <h1 className="text-2xl font-bold mb-6 font-montserrat text-red-500">
+        Dashboard
+        </h1>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-screen-xl">
         <div className="p-4 bg-white rounded shadow">
-          <h3 className="text-lg font-semibold mb-2 text-green-500">Total Revenue</h3>
+          <h3 className="text-lg font-semibold mb-2 text-red-500">
+            Total Revenue
+          </h3>
           <p className="text-2xl font-bold">Rs.{totalRevenue}</p>
         </div>
         <div className="p-4 bg-white rounded shadow">
-          <h3 className="text-lg font-semibold mb-2 text-blue-500">Total Orders</h3>
+          <h3 className="text-lg font-semibold mb-2 text-red-500">
+            Total Orders
+          </h3>
           <p className="text-2xl font-bold">{totalOrders}</p>
         </div>
         <div className="p-4 bg-white rounded shadow">
-          <h3 className="text-lg font-semibold mb-2 text-purple-500">Average Order Value</h3>
+          <h3 className="text-lg font-semibold mb-2 text-red-500">
+            Average Order Value
+          </h3>
           <p className="text-2xl font-bold">Rs.{avgOrderValue.toFixed(2)}</p>
         </div>
       </div>
@@ -177,7 +207,9 @@ const AdminDashboard = () => {
       {/* User Activity Overview */}
       {userActivity && (
         <div className="p-4 bg-white rounded shadow">
-          <h3 className="text-xl font-semibold mb-4">User Activity</h3>
+          <h3 className="text-xl text-red-500 font-semibold mb-4">
+            User Activity
+          </h3>
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>New Users (Last 30 Days)</span>
@@ -206,8 +238,20 @@ const AdminDashboard = () => {
       </div>
 
       {/* Sales Performance Comparison */}
+      {/* Sales Performance Filter */}
       <div className="p-4 bg-white rounded shadow">
         <h3 className="text-xl font-semibold mb-4">Sales Performance</h3>
+        <select
+          value={salesFilter}
+          onChange={handleFilterChange}
+          className="p-2 border rounded mb-4"
+        >
+          <option value="today">Today</option>
+          <option value="last7Days">Last 7 Days</option>
+          <option value="last30Days">Last 30 Days</option>
+          <option value="last6Months">Last 6 Months</option>
+          <option value="lastYear">Last Year</option>
+        </select>
         <Bar data={barChartData} />
       </div>
 
@@ -217,8 +261,12 @@ const AdminDashboard = () => {
         <ul className="space-y-2">
           {recentOrders.map((order) => (
             <li key={order._id} className="flex justify-between">
-              <span>Order #{order.orderId}</span>
-              <span>{formatDistanceToNow(new Date(order.dateOrdered))} ago</span>
+              <span className="font-montserrat font-semibold">
+                Order <span className="text-red-500">{order.orderId}</span>
+              </span>
+              <span>
+                {formatDistanceToNow(new Date(order.dateOrdered))} ago
+              </span>
             </li>
           ))}
         </ul>
@@ -229,9 +277,21 @@ const AdminDashboard = () => {
         <h3 className="text-xl font-semibold mb-4">Top Menu Items</h3>
         <ul className="space-y-2">
           {topMenuItems.map((item) => (
-            <li key={item._id} className="flex justify-between">
-              <span>{item.name}</span>
-              <span>{item.totalQuantity} Sold</span>
+            <li
+              key={item.menuItemId}
+              className="flex justify-between items-center"
+            >
+              <div className="flex items-center space-x-4">
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="w-12 h-12 rounded"
+                />
+                <span className="font-semibold ">{item.name}</span>
+              </div>
+              <span className="text-red-500 font-bold">
+                {item.totalQuantity} Sold
+              </span>
             </li>
           ))}
         </ul>
