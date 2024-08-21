@@ -115,18 +115,13 @@ const NavBar = () => {
             <div className="relative">
               <img
                 src={currentUser.profilePicture}
-                className="rounded-full"
+                className="rounded-full border-2 border-red-500"
                 width={40}
                 onClick={handleProfileMenuToggle}
               />
               {isProfileMenuOpen && (
                 <div className="absolute  right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
-                  >
-                    Profile
-                  </Link>
+                 
 
                   <button
                     onClick={handleSignOut}
@@ -166,19 +161,14 @@ const NavBar = () => {
                 </div>
                 <img
                   src={currentUser.profilePicture}
-                  className="rounded-full block lg:hidden"
+                  className="rounded-full block lg:hidden border-2 border-red-500"
                   width={38}
                   onClick={handleProfileMenuToggle}
                 />
               </div>
               {isProfileMenuOpen && (
                 <div className="absolute lg:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
-                  >
-                    Profile
-                  </Link>
+                  
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left px-4 py-2 font-semibold text-sm text-gray-700 hover:bg-gray-100"
