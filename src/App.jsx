@@ -24,8 +24,9 @@ import ManageReservation from "./pages/Admin/pages/ManageReservation";
 import ManageOffers from "./pages/Admin/pages/ManageOffers";
 import ManageOrders from "./pages/Admin/pages/ManageOrders";
 import ManageQueries from "./pages/Admin/pages/ManageQueries";
+import ManageStaff from "./pages/Admin/pages/ManageStaff";
 
-import StaffRoute from "./components/StaffRoute";  // Use the correct StaffRoute here
+import StaffRoute from "./components/StaffRoute";
 import StaffNavBar from "./pages/Staff/components/StaffNavBar";
 import StaffDashboard from "./pages/Staff/StaffDashboard";
 
@@ -50,6 +51,7 @@ const App = () => {
     "/admin/offers",
     "/admin/orders",
     "/admin/queries",
+    "/admin/staff",
     "/staff",
     "/staff/reservation",
     "/staff/orders",
@@ -63,7 +65,7 @@ const App = () => {
       {isDefinedRoute && (
         <>
           {isAdminRoute && <AdminNavBar />}
-          {isStaffRoute  && <StaffNavBar />}
+          {isStaffRoute && <StaffNavBar />}
           {!isAdminRoute && !isStaffRoute && <NavBar />}
         </>
       )}
@@ -79,6 +81,7 @@ const App = () => {
             <Route path="offers" element={<ManageOffers />} />
             <Route path="orders" element={<ManageOrders />} />
             <Route path="queries" element={<ManageQueries />} />
+            <Route path="staff" element={<ManageStaff />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : isStaffRoute ? (
