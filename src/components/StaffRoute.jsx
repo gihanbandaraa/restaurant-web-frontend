@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const StaffRoute = () => {
   const { currentUser } = useSelector((state) => state.user);
-  return currentUser && currentUser.isStaff ? (
+  return currentUser && (currentUser.isAdmin || currentUser.isStaff) ? (
     <Outlet />
   ) : (
     <Navigate to="/" />

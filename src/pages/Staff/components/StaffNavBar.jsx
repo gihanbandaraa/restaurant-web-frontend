@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHome, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaHome, FaQuestionCircle, FaSearch, FaShoppingCart } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 import {
   RiMenu3Fill,
@@ -66,7 +66,7 @@ const StaffNavBar = () => {
           </li>
         </Link>
 
-        <Link to="/admin/queries">
+        <Link to="/staff/queries">
           <li
             className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
               location.pathname === "/admin/queries"
