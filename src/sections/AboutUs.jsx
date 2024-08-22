@@ -27,7 +27,7 @@ const AboutUs = () => {
               Book A Table
             </h3>
             <p className="text-2xl md:text-3xl font-semibold mt-2 font-poppins text-red-500">
-              +94 71 123 4567DF
+              +94 71 123 4567
             </p>
           </div>
           <h2 className="font-montserrat text-sm font-bold mt-4">
@@ -77,7 +77,7 @@ const AboutUs = () => {
           </div>
           <div className="group overflow-hidden mt-2 cursor-pointer">
             <img
-              src="/Images/restaurant2.jpg"
+              src="/Images/restaurant1.jpg"
               alt="restaurant"
               className="transform transition-transform duration-300 ease-in-out group-hover:scale-110"
             />
