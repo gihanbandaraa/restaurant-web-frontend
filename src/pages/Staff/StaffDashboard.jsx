@@ -114,7 +114,19 @@ const StaffDashboard = () => {
     setSalesFilter(selectedFilter);
   };
 
-  if (!dashboardData) return <div>Loading...</div>;
+  if (
+    !dashboardData ||
+    !topMenuItems.length ||
+    !salesPerformance.length ||
+    !recentOrders.length ||
+    !userActivity
+  ) {
+    return (
+      <section className="fixed-container p-4 space-y-8">
+        <div className="line-loader"></div>
+      </section>
+    );
+  }
 
   const {
     revenueByDay,

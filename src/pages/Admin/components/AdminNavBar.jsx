@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { BiCategory, BiSolidOffer } from "react-icons/bi";
-import { FaHome, FaQuestionCircle, FaSearch, FaShoppingCart } from "react-icons/fa";
+import {
+  FaHome,
+  FaQuestionCircle,
+  FaSearch,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { GrGallery } from "react-icons/gr";
 import { IoIosNotifications } from "react-icons/io";
 import { MdRestaurantMenu } from "react-icons/md";
@@ -8,6 +13,7 @@ import {
   RiMenu3Fill,
   RiCloseFill,
   RiCalendarScheduleLine,
+  RiTeamFill,
 } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -137,6 +143,20 @@ const AdminNavBar = () => {
             </div>
           </li>
         </Link>
+        <Link to="/admin/staff">
+          <li
+            className={`mb-4 p-2 text-gray-700 rounded-lg transform duration-300 ${
+              location.pathname === "/admin/staff"
+                ? "bg-red-400  text-white"
+                : "hover:bg-slate-300"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <RiTeamFill />
+              <p className="font-montserrat font-semibold">Staff</p>
+            </div>
+          </li>
+        </Link>
       </ul>
     </nav>
   );
@@ -152,17 +172,7 @@ const AdminNavBar = () => {
                 className="w-32 md:w-40 cursor-pointer"
               />
             </Link>
-            <div className="hidden md:flex py-2 px-4 text-sm bg-gray-100 rounded-2xl items-center gap-2">
-              <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search..."
-                aria-label="Search"
-                className="bg-transparent font-poppins outline-none w-full"
-              />
-              <FaSearch className="text-gray-500" />
-            </div>
+
             {menuOpen ? (
               <RiCloseFill
                 className="w-6 h-6 md:hidden cursor-pointer"
@@ -178,15 +188,21 @@ const AdminNavBar = () => {
           <div className="flex items-center gap-4">
             {currentUser && (
               <>
-                <IoIosNotifications className="w-6 h-6 md:w-8 md:h-8 text-gray-800 cursor-pointer" />
                 <img
                   src={currentUser.profilePicture}
                   alt={`${currentUser.username}'s profile`}
-                  className="rounded-full w-8 h-8 md:w-12 md:h-12 object-cover cursor-pointer"
+                  className="rounded-full w-8 h-8 md:w-12 md:h-12 object-cover border-2 border-red-500 shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
                 />
-                <h2 className="hidden md:block font-montserrat cursor-pointer text-sm font-bold text-gray-700">
-                  {currentUser.username}
-                </h2>
+                <div>
+                  <h2 className="hidden md:block font-montserrat cursor-pointer text-sm font-bold text-gray-700 hover:text-red-500 transition-colors duration-300">
+                    {currentUser.username}
+                  </h2>
+                  {currentUser.isAdmin && (
+                    <h2 className="text-xs font-montserrat font-medium text-gray-500">
+                      Super Admin
+                    </h2>
+                  )}
+                </div>
               </>
             )}
           </div>
@@ -204,17 +220,6 @@ const AdminNavBar = () => {
           />
         </div>
         <div className="px-4">
-          <div className="py-2 px-4 text-sm bg-gray-100 rounded-2xl mb-4 flex items-center gap-2">
-            <input
-              type="search"
-              name="search"
-              id="search"
-              placeholder="Search..."
-              aria-label="Search"
-              className="bg-transparent font-poppins outline-none w-full"
-            />
-            <FaSearch className="text-gray-500" />
-          </div>
           <Navigation />
         </div>
       </div>

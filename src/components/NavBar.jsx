@@ -29,9 +29,11 @@ const NavBar = () => {
   const handleProfileMenuToggle = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
+
   const handleCartModalToggle = () => {
     setIsCartModalOpen(!isCartModalOpen);
   };
+
   const handleSearchModalToggle = () => {
     setIsSearchModalOpen(!isSearchModalOpen);
   };
@@ -50,6 +52,25 @@ const NavBar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleScroll = (event) => {
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute("href");
+
+    if (href.startsWith("#")) {
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      window.location.href = href;
+    }
+  };
 
   const handleSignOut = async () => {
     try {
@@ -87,9 +108,11 @@ const NavBar = () => {
             {navItems.map((item) => (
               <li
                 key={item.id}
-                className="mx-4 font-semibold text-sm lg:text-base hover:text-red-500 hover:text-lg transition-all "
+                className="mx-4 font-semibold text-sm lg:text-base hover:text-red-500 hover:text-lg transition-all"
               >
-                <a href={item.url}>{item.title}</a>
+                <a href={item.url} onClick={handleScroll}>
+                  {item.title}
+                </a>
               </li>
             ))}
           </ul>
@@ -104,7 +127,7 @@ const NavBar = () => {
           </div>
           <div
             className="relative cursor-pointer flex"
-            onClick={handleCartModalToggle} // Toggle CartModal on click
+            onClick={handleCartModalToggle}
           >
             <CgShoppingCart size={32} />
             <p className="h-4 w-4 text-center text-white text-xs font-bold rounded-full bg-red-500 absolute top-0 right-0">
@@ -115,19 +138,12 @@ const NavBar = () => {
             <div className="relative">
               <img
                 src={currentUser.profilePicture}
-                className="rounded-full"
+                className="rounded-full border-2 border-red-500"
                 width={40}
                 onClick={handleProfileMenuToggle}
               />
               {isProfileMenuOpen && (
-                <div className="absolute  right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
-                  >
-                    Profile
-                  </Link>
-
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left px-4 font-semibold py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -166,19 +182,13 @@ const NavBar = () => {
                 </div>
                 <img
                   src={currentUser.profilePicture}
-                  className="rounded-full block lg:hidden"
+                  className="rounded-full block lg:hidden border-2 border-red-500"
                   width={38}
                   onClick={handleProfileMenuToggle}
                 />
               </div>
               {isProfileMenuOpen && (
                 <div className="absolute lg:hidden right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100"
-                  >
-                    Profile
-                  </Link>
                   <button
                     onClick={handleSignOut}
                     className="block w-full text-left px-4 py-2 font-semibold text-sm text-gray-700 hover:bg-gray-100"
@@ -190,7 +200,7 @@ const NavBar = () => {
             </div>
           ) : (
             <Link to={"/sign-in"}>
-              <div className="bg-slate-800 py-2 px-4 text-xs  lg:hidden  rounded-full font-semibold text-white">
+              <div className="bg-slate-800 py-2 px-4 text-xs lg:hidden rounded-full font-semibold text-white">
                 <button>Sign In</button>
               </div>
             </Link>
@@ -207,16 +217,22 @@ const NavBar = () => {
       </div>
 
       <div
-        className={`lg:hidden flex flex-col  items-center transition-all duration-700 ${
+        className={`lg:hidden flex flex-col items-center transition-all duration-700 ${
           isMobileMenuOpen
             ? "max-h-screen opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
-        <ul className="flex flex-col items-center">
+        <ul className="flex flex-col pb-8   items-center">
           {navItems.map((item) => (
-            <li key={item.id} className="my-2 font-semibold text-base">
-              <a href={item.url}>{item.title}</a>
+            <li key={item.id} className="my-2  font-semibold text-base">
+              <a
+                href={item.url}
+                onClick={handleScroll}
+                className="hover:text-red-500 transform duration-200"
+              >
+                {item.title}
+              </a>
             </li>
           ))}
         </ul>
