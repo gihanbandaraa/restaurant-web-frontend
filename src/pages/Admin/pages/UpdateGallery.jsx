@@ -122,7 +122,6 @@ const UpdateGallery = () => {
 
   const handleConfirmDelete = async () => {
     if (!deletingImage) return;
-
     try {
       // Remove from your database
       const res = await fetch(`/api/admin/delete-image/${deletingImage.id}`, {
