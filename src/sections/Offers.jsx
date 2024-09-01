@@ -7,13 +7,16 @@ import { Link } from "react-router-dom";
 
 const Offers = () => {
   const [offers, setOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchOffers = async () => {
       try {
-        const response = await fetch("/api/admin/get-offers"); // Assuming you have an endpoint for offers
+        const response = await fetch("/api/admin/get-offers");
         const data = await response.json();
         setOffers(data);
+        setLoading(false);
       } catch (error) {
         toast.error("Failed to fetch offers");
       }
@@ -63,30 +66,37 @@ const Offers = () => {
       </div>
 
       <div className="max-w-screen-lg w-full">
-        <Slider {...settings} className="w-full">
-          {offers.map((offer) => (
-            <div key={offer._id} className="p-2 box-border">
-              <div className="bg-gray-100 p-5 m-2 sm:m-6 rounded-lg shadow-md flex flex-col items-center hover:scale-105 transform transition-transform duration-200">
-                <img
-                  src={offer.imageUrl}
-                  alt={offer.title}
-                  className="w-full object-cover object-center rounded-lg"
-                />
-                <h3 className="text-lg font-semibold text-gray-800 mt-4">
-                  {offer.title}
-                </h3>
-                <p className="text-sm text-gray-500 text-center mt-2">
-                  {offer.description}
-                </p>
-                <Link to={"/menu"}>
-                  <button className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-red-600 transition-colors">
-                    {offer.buttonText}
-                  </button>
-                </Link>
+        {loading ? (
+          <div className="w-full h-96 flex items-center justify-center">
+            <div className="loader mr-4"></div>
+            <p className="font-semibold">Loading</p>
+          </div>
+        ) : (
+          <Slider {...settings} className="w-full">
+            {offers.map((offer) => (
+              <div key={offer._id} className="p-2 box-border">
+                <div className="bg-gray-100 p-5 m-2 sm:m-6 rounded-lg shadow-md flex flex-col items-center hover:scale-105 transform transition-transform duration-200">
+                  <img
+                    src={offer.imageUrl}
+                    alt={offer.title}
+                    className="w-full object-cover object-center rounded-lg"
+                  />
+                  <h3 className="text-lg font-semibold text-gray-800 mt-4">
+                    {offer.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 text-center mt-2">
+                    {offer.description}
+                  </p>
+                  <Link to={"/menu"}>
+                    <button className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-red-600 transition-colors">
+                      {offer.buttonText}
+                    </button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        )}
       </div>
     </div>
   );

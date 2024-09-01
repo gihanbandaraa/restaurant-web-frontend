@@ -26,6 +26,7 @@ ChartJS.register(
 );
 
 import { formatDistanceToNow } from "date-fns";
+import ReportGenerator from "./components/ReportGenerator";
 
 const AdminDashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -34,79 +35,46 @@ const AdminDashboard = () => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [userActivity, setUserActivity] = useState(null);
   const [salesFilter, setSalesFilter] = useState("last7Days");
+  const [salesSummery, setSalesSummery] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/admin/get-dashboard-data");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setDashboardData(data);
+        const [
+          dashboardResponse,
+          topMenuItemsResponse,
+          salesPerformanceResponse,
+          recentOrdersResponse,
+          userActivityResponse,
+          salesSummeryResponse,
+        ] = await Promise.all([
+          fetch("/api/admin/get-dashboard-data"),
+          fetch("/api/admin/top-menu-items"),
+          fetch(`/api/admin/sales-performance?filter=${salesFilter}`),
+          fetch("/api/admin/recent-orders"),
+          fetch("/api/admin/user-activity"),
+          fetch("/api/admin/sales-summary"),
+        ]);
+
+        const dashboardData = await dashboardResponse.json();
+        const topMenuItems = await topMenuItemsResponse.json();
+        const salesPerformance = await salesPerformanceResponse.json();
+        const recentOrders = await recentOrdersResponse.json();
+        const userActivity = await userActivityResponse.json();
+        const salesSummery = await salesSummeryResponse.json();
+
+        setDashboardData(dashboardData);
+        setTopMenuItems(topMenuItems);
+        setSalesPerformance(salesPerformance);
+        setRecentOrders(recentOrders);
+        setUserActivity(userActivity);
+        setSalesSummery(salesSummery);
       } catch (error) {
         console.error("Error fetching dashboard data", error);
       }
     };
 
-    const fetchTopMenuItems = async () => {
-      try {
-        const response = await fetch("/api/admin/top-menu-items");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setTopMenuItems(data);
-      } catch (error) {
-        console.error("Error fetching top menu items", error);
-      }
-    };
-    const fetchSalesPerformance = async (filter) => {
-      try {
-        const response = await fetch(
-          `/api/admin/sales-performance?filter=${filter}`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setSalesPerformance(data);
-      } catch (error) {
-        console.error("Error fetching sales performance", error);
-      }
-    };
-
-    const fetchRecentOrders = async () => {
-      try {
-        const response = await fetch("/api/admin/recent-orders");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setRecentOrders(data);
-      } catch (error) {
-        console.error("Error fetching recent orders", error);
-      }
-    };
-
-    const fetchUserActivity = async () => {
-      try {
-        const response = await fetch("/api/admin/user-activity");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setUserActivity(data);
-      } catch (error) {
-        console.error("Error fetching user activity", error);
-      }
-    };
-
     fetchData();
-    fetchTopMenuItems();
-    fetchSalesPerformance(salesFilter);
-    fetchRecentOrders();
-    fetchUserActivity();
   }, [salesFilter]);
 
   const handleFilterChange = (event) => {
@@ -176,13 +144,15 @@ const AdminDashboard = () => {
   return (
     <section className="fixed-container p-4 space-y-8">
       <nav className="text-sm font-medium text-gray-500 mb-4">
-          <span className="text-red-600">Dashboard</span> / Dashboard
-        </nav>
+        <span className="text-red-600">Dashboard</span> / Dashboard
+      </nav>
+      <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold mb-6 font-montserrat text-red-500">
-        Dashboard
+          Dashboard
         </h1>
+        <ReportGenerator />
+      </div>
 
-      {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-screen-xl">
         <div className="p-4 bg-white rounded shadow">
           <h3 className="text-lg font-semibold mb-2 text-red-500">
