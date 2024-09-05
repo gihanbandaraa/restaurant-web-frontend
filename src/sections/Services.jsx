@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   FaUtensils,
   FaConciergeBell,
@@ -6,13 +8,54 @@ import {
   FaCalendarAlt,
   FaCocktail,
   FaBirthdayCake,
-  FaLeaf,
-  FaChild,
 } from "react-icons/fa";
 import ServiceCard from "../components/ServiceCard";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Services = () => {
   const [services, setServices] = useState([]);
+  const sectionRef = useRef();
+  const titleRef = useRef();
+  const subtitleRef = useRef();
+  const cardRefs = useRef([]);
+  cardRefs.current = [];
+
+  const addToCardRefs = (el) => {
+    if (el && !cardRefs.current.includes(el)) {
+      cardRefs.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+      },
+      defaults: { ease: "power2.out", duration: 1.2 },
+    });
+
+    tl.from(titleRef.current, { opacity: 0, y: -20 })
+      .from(subtitleRef.current, { opacity: 0, y: -20 }, "-=0.8")
+      .from(
+        cardRefs.current,
+        {
+          opacity: 0,
+          y: 30,
+          stagger: 0.2,
+        },
+        "-=0.8"
+      );
+
+    return () => {
+      if (ScrollTrigger.getById("servicesTrigger")) {
+        ScrollTrigger.getById("servicesTrigger").kill();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,12 +109,18 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="services" className="py-12 ">
+    <section id="services" ref={sectionRef} className="py-12">
       <div className="container mx-auto px-6 max-w-screen-lg">
-        <p className="font-bold text-center font-montserrat text-sm text-gray-500">
+        <p
+          ref={subtitleRef}
+          className="font-bold text-center font-montserrat text-sm text-gray-500"
+        >
           SERVICES
         </p>
-        <h2 className="text-3xl md:text-4xl mt-4 font-extrabold font-montserrat text-center mb-4 text-gray-800">
+        <h2
+          ref={titleRef}
+          className="text-3xl md:text-4xl mt-4 font-extrabold font-montserrat text-center mb-4 text-gray-800"
+        >
           Why <span className="text-red-500">Choose us?</span>
         </h2>
         <p className="text-sm text-center font-semibold mb-10 max-w-lg mx-auto text-gray-500">
@@ -79,12 +128,13 @@ const Services = () => {
           experience unforgettable.
         </p>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <ServiceCard
               key={service.id}
               icon={service.icon}
               title={service.title}
               description={service.description}
+              ref={(el) => addToCardRefs(el)}
             />
           ))}
         </div>

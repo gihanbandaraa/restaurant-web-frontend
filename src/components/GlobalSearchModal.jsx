@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/cart/cartSlice";
 import { MdClose, MdSearch } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const GlobalSearchModal = ({ isOpen, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,7 +52,7 @@ const GlobalSearchModal = ({ isOpen, onClose }) => {
     const discountedPrice = calculateDiscountedPrice(item);
     const newItem = { ...item, price: discountedPrice };
     dispatch(addItemToCart(newItem));
-    handleShowAlert("success", `${item.title} added to cart`);
+    toast.success(`${item.title} added to cart`);
   };
   if (!isOpen) return null;
 

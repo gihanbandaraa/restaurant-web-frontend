@@ -104,7 +104,7 @@ const Menu = () => {
 
       <div className="flex items-center md:justify-center hide-scrollbar max-w-full px-4 mx-auto overflow-x-auto space-x-2 mb-6">
         <button
-          className={`px-2 py-1 md:px-4 md:py-2 text-sm md:text-base rounded-lg ${
+          className={`px-2 py-1 font-bold md:px-4 md:py-2 text-sm md:text-base rounded-lg ${
             selectedCategory === null
               ? "bg-red-500 text-white"
               : "bg-gray-200 text-gray-700"

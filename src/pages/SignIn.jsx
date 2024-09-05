@@ -19,6 +19,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Oauth from "../components/OAuth";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const SignIn = () => {
 
     if (!formData.email || !formData.password) {
       dispatch(signInFailure("Please fill all fields!"));
-      handleShowAlert("error", "Please fill all fields!");
+      toast.error("Please fill all fields!");
       return;
     }
     try {
@@ -59,7 +60,7 @@ const SignIn = () => {
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
-        handleShowAlert("error", data.message);
+        toast.error(data.message);
       }
       if (res.ok) {
         setFormData({
@@ -67,11 +68,12 @@ const SignIn = () => {
           password: "",
         });
         dispatch(signInSuccess(data));
+        toast.success("Sign in successful!");
         navigate("/");
       }
     } catch (error) {
       dispatch(signInFailure(error.message));
-      handleShowAlert("error", "An error occurred. Please try again later.");
+      toast.error(error.message);
     }
   };
 
@@ -129,7 +131,6 @@ const SignIn = () => {
                   )}
                 </div>
               </div>
-
               <div className="flex sm:items-center gap-2 flex-col sm:flex-row justify-between">
                 <div>
                   <input type="checkbox" id="remember" />

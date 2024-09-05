@@ -13,6 +13,7 @@ const MenuSection = () => {
 
   useEffect(() => {
     const fetchMenuData = async () => {
+      setLoading(true);
       try {
         const res = await fetch("/api/admin/get-menu");
         const data = await res.json();
@@ -43,7 +44,7 @@ const MenuSection = () => {
     const newItem = { ...item, price: discountedPrice };
     dispatch(addItemToCart(newItem));
   };
-  
+
   return (
     <section className="py-10">
       <div className="flex items-center justify-center flex-col gap-4">
@@ -59,53 +60,60 @@ const MenuSection = () => {
           everyone.
         </p>
 
-  
-        <div className="grid grid-cols-1 px-8 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto ">
-          {menu.slice(0, visibleItems).map((item) => (
-            <div
-              key={item._id}
-              className="border relative border-gray-200 rounded-lg p-4 shadow-sm hover:scale-105 cursor-pointer transform duration-300"
-            >
-              {item.imageUrl && (
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-              )}
-              <h3 className="font-bold font-montserrat text-lg">
-                {item.title}
-              </h3>
-              <p className="text-gray-600 font-montserrat">
-                {item.description}
-              </p>
-              <div className="flex flex-row items-end justify-between">
-                <p className="text-red-500 text-xl font-semibold">
-                  Rs.{item.price}
-                </p>
-                {item.offers && (
-                  <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
-                    {item.offers}% off
-                  </span>
-                )}
-                <button
-                  onClick={() => handleAddToCart(item)}
-                  className="mt-4 bg-red-500 font-montserrat font-semibold text-white px-4 py-2 rounded-md hover:bg-red-400 transition duration-300"
+        {loading ? (
+          <div className="w-full h-96 flex items-center justify-center">
+            <div className="loader mr-4"></div>
+            <p className="font-semibold">Loading</p>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 px-8 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-xl mx-auto ">
+              {menu.slice(0, visibleItems).map((item) => (
+                <div
+                  key={item._id}
+                  className="border relative border-gray-200 rounded-lg p-4 shadow-sm hover:scale-105 cursor-pointer transform duration-300"
                 >
-                  Add to Cart
-                </button>
-              </div>
+                  {item.imageUrl && (
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      className="w-full h-48 object-cover rounded-md mb-4"
+                    />
+                  )}
+                  <h3 className="font-bold font-montserrat text-lg">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 font-montserrat">
+                    {item.description}
+                  </p>
+                  <div className="flex flex-row items-end justify-between">
+                    <p className="text-red-500 text-xl font-semibold">
+                      Rs.{item.price}
+                    </p>
+                    {item.offers && (
+                      <span className="absolute top-2 left-2 bg-green-500 text-white text-sm px-2 py-1 rounded">
+                        {item.offers}% off
+                      </span>
+                    )}
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      className="mt-4 bg-red-500 font-montserrat font-semibold text-white px-4 py-2 rounded-md hover:bg-red-400 transition duration-300"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* View All Button */}
-        {visibleItems < menu.length && (
-          <Link to="/menu">
-            <button className="mt-6 bg-red-500 font-montserrat font-semibold text-white px-6 py-2 rounded-md hover:bg-red-400 transition duration-300">
-              View All
-            </button>
-          </Link>
+            {visibleItems < menu.length && (
+              <Link to="/menu">
+                <button className="mt-6 bg-red-500 font-montserrat font-semibold text-white px-6 py-2 rounded-md hover:bg-red-400 transition duration-300">
+                  View All
+                </button>
+              </Link>
+            )}
+          </>
         )}
       </div>
     </section>

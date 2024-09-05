@@ -1,9 +1,74 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AboutUs = () => {
+  const sectionRef = useRef();
+  const titleRef = useRef();
+  const imageRefs = useRef([]);
+  imageRefs.current = [];
+
+  const addToImageRefs = (el) => {
+    if (el && !imageRefs.current.includes(el)) {
+      imageRefs.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+      },
+      smoothChildTiming: true,
+      defaults: { ease: "power2.out", duration: 1.2 },
+    });
+
+    tl.from(sectionRef.current, { opacity: 0, duration: 1.2 })
+      .from(titleRef.current, { y: -50, opacity: 0, duration: 1.2 }, "-=1")
+      .from(
+        imageRefs.current,
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.1,
+          duration: 1,
+          onComplete: () => {
+            imageRefs.current.forEach((el) => {
+              gsap.set(el, { clearProps: "all" });
+            });
+          },
+        },
+        "-=1"
+      )
+      .from(
+        sectionRef.current.querySelectorAll("h2, p, button"),
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.1,
+          duration: 1,
+          clearProps: "all",
+        },
+        "-=1"
+      );
+
+    return () => {
+      if (ScrollTrigger.getById("aboutUsTrigger")) {
+        ScrollTrigger.getById("aboutUsTrigger").kill();
+      }
+    };
+  }, []);
   return (
-    <div>
-      <div className="flex items-center justify-center flex-col gap-4">
+    <div ref={sectionRef}>
+      <div
+        className="flex items-center justify-center flex-col gap-4"
+        ref={titleRef}
+      >
         <p className="font-bold font-montserrat text-sm text-gray-500">
           ABOUT US
         </p>
@@ -13,13 +78,15 @@ const AboutUs = () => {
       </div>
 
       <div className="mt-10 m-5 flex gap-4 md:gap-8 flex-col-reverse md:flex-row ">
-        {/*Left Div*/}
         <div>
-          <div className="group overflow-hidden cursor-pointer">
+          <div
+            className="group overflow-hidden cursor-pointer"
+            ref={addToImageRefs}
+          >
             <img
               src="/Images/restaurant4.jpg"
               alt="restaurant"
-              className="transform transition-transform duration-300 ease-in-out group-hover:scale-110"
+              className="transform transition-transform duration-300 ease-in-out group-hover:scale-110 will-change-transform"
             />
           </div>
           <div className="p-5 m-2 border-gray-400 border-2 flex items-center justify-center flex-col mt-4 ">
@@ -50,7 +117,6 @@ const AboutUs = () => {
           </button>
         </div>
 
-        {/*Right Div*/}
         <div className="flex flex-col-reverse gap-4 md:gap-2 md:flex-col">
           <div>
             <h2 className="font-montserrat text-sm font-bold">
@@ -75,11 +141,14 @@ const AboutUs = () => {
               variety of dishes to suit every preference.
             </p>
           </div>
-          <div className="group overflow-hidden mt-2 cursor-pointer">
+          <div
+            className="group overflow-hidden mt-2 cursor-pointer"
+            ref={addToImageRefs}
+          >
             <img
               src="/Images/restaurant1.jpg"
               alt="restaurant"
-              className="transform transition-transform duration-300 ease-in-out group-hover:scale-110"
+              className="transform transition-transform duration-300 ease-in-out group-hover:scale-110 will-change-transform"
             />
           </div>
         </div>
