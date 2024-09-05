@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Alert from "../components/Alert";
 import useAlert from "../hooks/useAlert";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ const SignUp = () => {
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
-   
   };
 
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      handleShowAlert("error", "Please fill all fields!");
+      toast.error("Please fill in all fields");
       return;
     }
     try {
@@ -50,7 +50,7 @@ const SignUp = () => {
 
       const data = await res.json();
       if (data.success === false) {
-        handleShowAlert("error", data.message);
+        toast.error(data.message);
       }
       if (res.ok) {
         setFormData({
@@ -58,11 +58,11 @@ const SignUp = () => {
           email: "",
           password: "",
         });
-        handleShowAlert("success", "Registration successful!");
+        toast.success("Account created successfully");
         navigate("/sign-in");
       }
     } catch (error) {
-      handleShowAlert("error", "An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later");
     }
   };
 

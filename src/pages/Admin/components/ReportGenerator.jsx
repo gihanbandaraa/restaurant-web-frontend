@@ -145,7 +145,7 @@ const ReportGenerator = () => {
 
     yOffset += 20;
 
-    // Sales Summary Section
+ 
     doc.setFontSize(fontSizeHeading);
     doc.setTextColor(...redColor);
     doc.text("Sales Summary", 10, yOffset);
